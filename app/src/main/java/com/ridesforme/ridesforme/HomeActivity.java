@@ -1,6 +1,8 @@
 package com.ridesforme.ridesforme;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -20,7 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, BlankFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -51,12 +53,25 @@ public class HomeActivity extends AppCompatActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+        Fragment f = null;
+        if(position == 0){
+            //f = new InicioFragment();
+            /*Intent it = new Intent(getBaseContext(),TesteActivity.class);
+            startActivity(it);*/
+        }else if(position == 1){
+            f = new BlankFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, f)
+                    .commit();
+        }else{
+            //  f = new TecladoFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, f)
+                    .commit();
+        }
     }
 
-    public void onSectionAttached(int number) {
+    /*public void onSectionAttached(int number) {
         switch (number) {
             case 1:
                 mTitle = getString(R.string.title_section1);
@@ -68,7 +83,7 @@ public class HomeActivity extends AppCompatActivity
                 mTitle = getString(R.string.title_section3);
                 break;
         }
-    }
+    }*/
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
@@ -106,20 +121,25 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
-        /**
+    /*public static class PlaceholderFragment extends Fragment {
+        *//**
          * The fragment argument representing the section number for this
          * fragment.
-         */
+         *//*
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        /**
+        *//**
          * Returns a new instance of this fragment for the given section
          * number.
-         */
+         *//*
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -144,6 +164,6 @@ public class HomeActivity extends AppCompatActivity
             ((HomeActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
-    }
+    }*/
 
 }
