@@ -1,28 +1,20 @@
 package com.ridesforme.ridesforme;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+
+import com.ridesforme.ridesforme.fragments.MapHomeFragment;
+import com.ridesforme.ridesforme.fragments.PerfilFragment;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, BlankFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, MapHomeFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -55,23 +47,18 @@ public class HomeActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment f = null;
         if(position == 0){
-            //f = new InicioFragment();
-            /*Intent it = new Intent(getBaseContext(),TesteActivity.class);
-            startActivity(it);*/
+            f = new PerfilFragment();
         }else if(position == 1){
-            f = new BlankFragment();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, f)
-                    .commit();
+            //f = new MapHomeFragment();
         }else{
             //  f = new TecladoFragment();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, f)
-                    .commit();
         }
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, f)
+                .commit();
     }
 
-    /*public void onSectionAttached(int number) {
+   /* public void onSectionAttached(int number) {
         switch (number) {
             case 1:
                 mTitle = getString(R.string.title_section1);
