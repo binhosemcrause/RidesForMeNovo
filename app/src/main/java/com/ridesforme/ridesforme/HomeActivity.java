@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
+import com.ridesforme.ridesforme.fragments.ContatoFragment;
 import com.ridesforme.ridesforme.fragments.MapHomeFragment;
 import com.ridesforme.ridesforme.fragments.PerfilFragment;
 
@@ -47,11 +48,11 @@ public class HomeActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment f = null;
         if(position == 0){
-            f = new PerfilFragment();
+            f = new MapHomeFragment();
         }else if(position == 1){
-            //f = new MapHomeFragment();
-        }else{
-            //  f = new TecladoFragment();
+            f = new ContatoFragment();
+        }else if(position == 2){
+            f = new PerfilFragment();
         }
         fragmentManager.beginTransaction()
                 .replace(R.id.container, f)
