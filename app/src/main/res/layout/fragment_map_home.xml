@@ -12,14 +12,8 @@
         android:layout_height="500dp"
         android:id="@+id/map"
         tools:context=".MapHomeFragment"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
-
-
-    <TextView
-        android:id="@+id/lbllogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+       android:layout_above="@+id/endereco" />
 
     <Button
         android:layout_width="wrap_content"
@@ -35,14 +29,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
         android:id="@+id/endereco"
-        android:layout_alignBottom="@+id/map"
+        android:background="#000000"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#000000"/>
+        android:layout_above="@+id/btnCarona" />
 
 </RelativeLayout>

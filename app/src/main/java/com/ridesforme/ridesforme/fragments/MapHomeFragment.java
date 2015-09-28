@@ -84,8 +84,8 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
 
         HashMap<String, String> user = session.getUserDetails();
         String name = user.get(UserSessionManager.KEY_NAME);
-        TextView txtLogin = (TextView)v.findViewById(R.id.lbllogin);
-        txtLogin.setText(Html.fromHtml("Name: <b>" + name + "</b>"));
+        /*TextView txtLogin = (TextView)v.findViewById(R.id.lbllogin);
+        txtLogin.setText(Html.fromHtml("Name: <b>" + name + "</b>"));*/
 
         //GOOGLE MAPS
 

@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/textview_border"
-            android:hint="Username"
+            android:id="@+id/perfil_username"
             android:paddingTop="6dp"
             android:paddingBottom="8dp"
             android:paddingLeft="6dp"
