@@ -290,11 +290,26 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
             List<Address> addresses = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
             endereco.setText(addresses.get(0).getAddressLine(0).toString());
             pEndereco = addresses.get(0).getThoroughfare().toString();
-            pNumero =  addresses.get(0).getFeatureName();
-            pCidade =  addresses.get(0).getLocality();
+            pNumero = addresses.get(0).getFeatureName();
+            pCidade = addresses.get(0).getLocality();
             Log.i("endereco", addresses.get(0).getAddressLine(0).toString());
             Toast.makeText(getActivity(), "movido", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
+        } catch (Exception e) {
+            try {
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                        mGoogleApiClient);
+                LatLng myLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17));
+                marker.setPosition(myLocation);
+                Toast.makeText(getActivity(), "movido", Toast.LENGTH_SHORT).show();
+            } catch (Exception ee) {
+                LatLng myLocation = new LatLng(-14.2392976, -53.1805017);
+                Toast.makeText(getActivity(), "Localização não encontrada", Toast.LENGTH_LONG).show();
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 2));
+                marker.setPosition(myLocation);
+            }
+
+
             e.printStackTrace();
         }
     }
