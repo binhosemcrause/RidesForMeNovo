@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cadastrar"
-        android:id="@+id/button"
+        android:id="@+id/btnCad"
         android:textColor="#00BCD4"
         android:layout_below="@+id/edtCadConfirmSenha"
         android:layout_alignParentLeft="true"

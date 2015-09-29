@@ -113,11 +113,12 @@ public class LoginActivity extends Activity {
                     return Boolean.parseBoolean(responseString);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    return false;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                return false;
             }
-            return null;
         }
     }
 }
