@@ -2,12 +2,23 @@ package com.ridesforme.ridesforme;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class LoginActivity extends Activity {
@@ -25,7 +36,7 @@ public class LoginActivity extends Activity {
         txtCadastrar.setText(Html.fromHtml("<p><u>Cadastre-se agora!</u></p>"));
         session = new UserSessionManager(getApplication());
 
-        btnLogar.setOnClickListener(new View.OnClickListener() {
+        /*btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = txtLogin.getText().toString();
@@ -36,10 +47,10 @@ public class LoginActivity extends Activity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
 
         //Com WebService
-        /*btnLogar.setOnClickListener(new Button.OnClickListener() {
+        btnLogar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = txtLogin.getText().toString();
@@ -49,7 +60,7 @@ public class LoginActivity extends Activity {
                     b = new LoginControllerTask().execute(username, password).get();
                     if (b == true) {
                         session.createUserLoginSession(username, password);
-                        Intent intent = new Intent(getApplicationContext(), MapHomeActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(getApplication(), "login ou senha inválidos!", Toast.LENGTH_SHORT).show();
@@ -63,21 +74,21 @@ public class LoginActivity extends Activity {
 
             }
         });
-*/
-        /*txtCadastrar.setOnClickListener(new View.OnClickListener() {
+
+        txtCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(LoginActivity.this, CadastroActivity.class);
                 startActivity(it);
             }
-        });*/
+        });
 
     }
 
     /**
      * Created by Felipe on 27/08/2015.
      */
-    /*public static class LoginControllerTask extends AsyncTask<String, Integer, Boolean> {
+    public static class LoginControllerTask extends AsyncTask<String, Integer, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
@@ -89,7 +100,8 @@ public class LoginActivity extends Activity {
                         .addFormDataPart("senha",params[1])
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://187.59.115.154:8080/rpg/usuario/login")
+                        //teste login servidor casa felipe
+                        .url("http://179.182.98.29:8080/rpg/usuario/login")
                         .post(requestBody)
                         .build();
                 try {
@@ -106,5 +118,5 @@ public class LoginActivity extends Activity {
             }
             return null;
         }
-    }*/
+    }
 }

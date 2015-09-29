@@ -66,6 +66,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CaronaPasso1Activity" />
         </activity>
+        <activity
+            android:name=".CadastroActivity"
+            android:label="@string/title_activity_cadastro"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ridesforme.ridesforme.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -252,11 +252,11 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
         pEndereco = addresses.get(0).getThoroughfare().toString();
         pNumero =  addresses.get(0).getFeatureName();
         pCidade =  addresses.get(0).getLocality();
-        Log.i("tudo", addresses.get(0).toString());
+ /*       Log.i("tudo", addresses.get(0).toString());
         Log.i("endereco", addresses.get(0).getAddressLine(0).toString());
         Log.i("postalcode",addresses.get(0).getPostalCode().toString());
         Log.i("featuedabress",addresses.get(0).getFeatureName().toString());
-        Log.i("locality",addresses.get(0).getLocality().toString());
+        Log.i("locality",addresses.get(0).getLocality().toString());*/
     }
 
     @Override
