@@ -61,6 +61,7 @@ public class LoginActivity extends Activity {
                     if (b == true) {
                         session.createUserLoginSession(username, password);
                         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     } else {
                         Toast.makeText(getApplication(), "login ou senha inválidos!", Toast.LENGTH_SHORT).show();

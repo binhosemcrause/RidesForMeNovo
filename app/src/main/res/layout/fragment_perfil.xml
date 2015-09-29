@@ -78,4 +78,9 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
+    <Button
+        android:layout_width="355dp"
+        android:layout_height="wrap_content"
+        android:text="Deslogar"
+        android:id="@+id/btnDeslogar" />
 </LinearLayout>

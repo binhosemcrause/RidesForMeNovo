@@ -96,7 +96,7 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
 
 
 
-        Button btnCarona = (Button)v.findViewById(R.id.btnCarona);
+       /* Button btnCarona = (Button)v.findViewById(R.id.btnCarona);
         btnCarona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +108,7 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
                 intent.putExtras(b);
                 startActivity(intent);
             }
-        });
+        });*/
 
 
         return v;

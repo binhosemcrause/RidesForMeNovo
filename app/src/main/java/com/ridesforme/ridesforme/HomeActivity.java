@@ -1,5 +1,6 @@
 package com.ridesforme.ridesforme;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -49,14 +50,24 @@ public class HomeActivity extends AppCompatActivity
         Fragment f = null;
         if(position == 0){
             f = new MapHomeFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, f)
+                    .commit();
         }else if(position == 1){
-            f = new ContatoFragment();
+            Intent it = new Intent(getApplicationContext(), CaronaPasso1Activity.class);
+            startActivity(it);
         }else if(position == 2){
             f = new PerfilFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, f)
+                    .commit();
+        }else if (position == 3){
+            f = new ContatoFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, f)
+                    .commit();
         }
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, f)
-                .commit();
+
     }
 
    /* public void onSectionAttached(int number) {
