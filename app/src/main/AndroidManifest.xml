@@ -80,6 +80,43 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ridesforme.ridesforme.LoginActivity" />
         </activity>
+
+        <activity
+            android:name=".PesquisarCaronaActivity"
+            android:label="@string/title_activity_pesquisar_carona"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ridesforme.ridesforme.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".fragments.FiltroCaronaActivity"
+            android:label="@string/title_activity_filtro_carona"
+            android:parentActivityName=".PesquisarCaronaActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ridesforme.ridesforme.PesquisarCaronaActivity" />
+        </activity>
+        <activity
+            android:name=".FilterCaronaActivity"
+            android:label="@string/title_activity_filter_carona"
+            android:parentActivityName=".PesquisarCaronaActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ridesforme.ridesforme.PesquisarCaronaActivity" />
+        </activity>
+        <activity
+            android:name=".DetalhePesquisaCaronaActivity"
+            android:label="@string/title_activity_detalhe_pesquisa_carona"
+            android:parentActivityName=".PesquisarCaronaActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ridesforme.ridesforme.PesquisarCaronaActivity" />
+        </activity>
     </application>
 
 </manifest>

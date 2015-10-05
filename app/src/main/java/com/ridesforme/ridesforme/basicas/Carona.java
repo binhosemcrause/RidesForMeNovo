@@ -9,35 +9,102 @@ import java.util.Date;
  */
 public class Carona implements Serializable{
 
-    public String idaVolta;
-    public String origem;
-    public String destino;
-    public Date data;
-    public int vagaDisponivel;
+
+
     public int _id;
+    public String endereco;
+    public String numero;
+    public String cidade;
+    public String bairro;
+    public String enderecoDestino;
+    public String numeroDestino;
+
+    public String cidadeDestino;
+    public String bairroDestino;
 
 
     public Carona(){}
 
-    public Carona(String ida, String origem, String destino, Date data, int vaga){
-        this.idaVolta = ida;
-        this.origem = origem;
-        this.destino = destino;
-        this.data = data;
-        this.vagaDisponivel = vaga;
+    public Carona(String endereco, String numero, String bairro, String cidade, String enderecoDestino, String numeroDestino, String cidadeDestino, String bairroDestino){
+        this.endereco = endereco;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.enderecoDestino = enderecoDestino;
+        this.numeroDestino = numeroDestino;
+        this.cidadeDestino = cidadeDestino;
+        this.bairroDestino = bairroDestino;
     }
 
-    public Carona(String origem, String destino){
-        this.origem = origem;
-        this.destino = destino;
+    public int get_id() {
+        return _id;
     }
 
-    public Carona(String ida, String origem, String destino, Date data){
-        this.idaVolta = ida;
-        this.origem = origem;
-        this.destino = destino;
-        this.data = data;
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
 
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getEnderecoDestino() {
+        return enderecoDestino;
+    }
+
+    public void setEnderecoDestino(String enderecoDestino) {
+        this.enderecoDestino = enderecoDestino;
+    }
+
+    public String getNumeroDestino() {
+        return numeroDestino;
+    }
+
+    public void setNumeroDestino(String numeroDestino) {
+        this.numeroDestino = numeroDestino;
+    }
+
+    public String getCidadeDestino() {
+        return cidadeDestino;
+    }
+
+    public void setCidadeDestino(String cidadeDestino) {
+        this.cidadeDestino = cidadeDestino;
+    }
+
+    public String getBairroDestino() {
+        return bairroDestino;
+    }
+
+    public void setBairroDestino(String bairroDestino) {
+        this.bairroDestino = bairroDestino;
+    }
 }

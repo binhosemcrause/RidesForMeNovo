@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ridesforme.ridesforme.CaronaPasso1Activity;
 import com.ridesforme.ridesforme.MainActivity;
+import com.ridesforme.ridesforme.PesquisarCaronaActivity;
 import com.ridesforme.ridesforme.R;
 import com.ridesforme.ridesforme.UserSessionManager;
 
@@ -96,19 +97,14 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
 
 
 
-       /* Button btnCarona = (Button)v.findViewById(R.id.btnCarona);
+        Button btnCarona = (Button)v.findViewById(R.id.btnCarona);
         btnCarona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle b = new Bundle();
-                b.putString("endereco", pEndereco);
-                b.putString("numero", pNumero);
-                b.putString("cidade", pCidade);
-                Intent intent = new Intent(getActivity(), CaronaPasso1Activity.class);
-                intent.putExtras(b);
-                startActivity(intent);
+                Intent i = new Intent(getContext(),PesquisarCaronaActivity.class);
+                startActivity(i);
             }
-        });*/
+        });
 
 
         return v;

@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,24 +23,31 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONObject;
+
+import com.ridesforme.ridesforme.basicas.Carona;
 import com.ridesforme.ridesforme.directions.DirectionsJSONParser;
+import com.ridesforme.ridesforme.repositorios.RepositorioCarona;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CaronaPasso2Activity extends AppCompatActivity implements OnMapReadyCallback {
+public class CaronaPasso2Activity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
     private GoogleMap map;
     private String endereco, numero, cidade,bairro;
     private String enderecoDestino, numeroDestino, cidadeDestino,bairroDestino;
     LatLng ltZoom;
     ArrayList<LatLng> markerPoints;
+    List<Carona> mCaronas = new ArrayList<>();
+    Button mBotaoSolicitarCarona;
+    RepositorioCarona repCarona = RepositorioCarona.getSingleton();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +69,9 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
         numeroDestino = params.getString("numeroDestino");
         cidadeDestino = params.getString("cidadeDestino");
         bairroDestino = params.getString("cidadeDestino");
+
+        mBotaoSolicitarCarona = (Button)findViewById(R.id.btnSolicitarCarona);
+        mBotaoSolicitarCarona.setOnClickListener(this);
 
         //GOOGGLE MAPS
 
@@ -132,6 +144,25 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
             urlConnection.disconnect();
         }
         return data;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Carona carona = new Carona();
+        carona.endereco = endereco;
+        carona.cidade = cidade;
+        carona.bairro = bairro;
+        carona.numero = numero;
+        carona.enderecoDestino = enderecoDestino;
+        carona.cidadeDestino = cidadeDestino;
+        carona.bairroDestino = bairroDestino;
+        carona.numeroDestino = numeroDestino;
+        repCarona.cadastrarCarona(carona);
+        mCaronas = repCarona.loadCaronas();
+        Intent intent = new Intent(this, PesquisarCaronaActivity.class);
+        intent.putExtra("listaCaronas", (Serializable)mCaronas);
+        startActivity(intent);
+
     }
 
     // Fetches data from url passed
