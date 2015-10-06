@@ -2,16 +2,15 @@ package com.ridesforme.ridesforme;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -50,6 +49,11 @@ public class CadastroActivity extends AppCompatActivity {
                 String email = txtEmail.getText().toString();
                 if (isDadosValidos()) {
                     try {
+                        new MaterialDialog.Builder(CadastroActivity.this)
+                                .title(R.string.cadastro_progress_dialog)
+                                .content(R.string.wait)
+                                .progress(true, 0)
+                                .show();
                         b = new CadastroControllerTask().execute(login, email, senha).get();
                         if (b == true) {
                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -93,7 +97,8 @@ public class CadastroActivity extends AppCompatActivity {
                     String responseString = response.body().string();
                     response.body().close();
                     Log.v("a", responseString);
-                    return Boolean.parseBoolean(responseString);
+                    boolean aaa = Boolean.parseBoolean(responseString);
+                    return  aaa;
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -12,13 +13,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +28,25 @@ public class LoginActivity extends Activity {
     UserSessionManager session;
     EditText txtLogin;
     EditText txtPassword;
+    Boolean exit = false;
+
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, R.string.confirm_exit,
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
+    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -40,9 +60,15 @@ public class LoginActivity extends Activity {
         txtCadastrar.setText(Html.fromHtml("<p><u>Cadastre-se agora!</u></p>"));
         session = new UserSessionManager(getApplication());
 
-        /*btnLogar.setOnClickListener(new View.OnClickListener() {
+        btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new MaterialDialog.Builder(LoginActivity.this)
+                        .title(R.string.login_progress_dialog)
+                        .content(R.string.wait)
+                        .progress(true, 0)
+                        .show();
+
                 String username = txtLogin.getText().toString();
                 String password = txtPassword.getText().toString();
                 session.createUserLoginSession(username, password);
@@ -51,12 +77,20 @@ public class LoginActivity extends Activity {
                 startActivity(intent);
                 finish();
             }
-        });*/
+        });
+
+
 
         //Com WebService
-        btnLogar.setOnClickListener(new Button.OnClickListener() {
+        /*btnLogar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
+              new MaterialDialog.Builder(LoginActivity.this)
+                        .title(R.string.login_progress_dialog)
+                        .content(R.string.wait)
+                        .progress(true, 0)
+                        .show();
+
                 if (validarDados()) {
                     String username = txtLogin.getText().toString();
                     String password = txtPassword.getText().toString();
@@ -81,7 +115,7 @@ public class LoginActivity extends Activity {
 
                 }
             }
-        });
+        });*/
 
         txtCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override

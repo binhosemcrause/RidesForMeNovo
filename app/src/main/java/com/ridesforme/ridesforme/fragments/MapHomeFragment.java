@@ -1,6 +1,5 @@
 package com.ridesforme.ridesforme.fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -8,8 +7,8 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +19,11 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -34,7 +31,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.ridesforme.ridesforme.CaronaPasso1Activity;
 import com.ridesforme.ridesforme.MainActivity;
 import com.ridesforme.ridesforme.PesquisarCaronaActivity;
 import com.ridesforme.ridesforme.R;
@@ -48,6 +44,7 @@ import java.util.Locale;
 
 public class MapHomeFragment extends Fragment implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener,OnMarkerDragListener {
     UserSessionManager session;
+    private static View view;
     private GoogleMap map;
     private static final String TAG = MainActivity.class.getSimpleName();
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
@@ -58,7 +55,7 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
     private String pNumero;
     private String pCidade;
 
-    private OnFragmentInteractionListener mListener;
+    private ContatoFragment.OnFragmentInteractionListener mListener;
 
     public MapHomeFragment() {
     }
@@ -71,33 +68,37 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View v = inflater.inflate(R.layout.fragment_map_home,container,false);
+        if (view != null) {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent != null)
+                parent.removeView(view);
+        }
+        try {
+            view = inflater.inflate(R.layout.fragment_map_home, container, false);
+        } catch (InflateException e) {
+        /* map is already there, just return view as it is */
+        }
 
         if (checkPlayServices()) {
             // Building the GoogleApi client
             buildGoogleApiClient();
         }
-        endereco = (TextView)v.findViewById(R.id.endereco);
-
-
+        endereco = (TextView) view.findViewById(R.id.endereco);
         session = new UserSessionManager(getActivity());
         if (session.checkLogin());
-
         HashMap<String, String> user = session.getUserDetails();
         String name = user.get(UserSessionManager.KEY_NAME);
         /*TextView txtLogin = (TextView)v.findViewById(R.id.lbllogin);
         txtLogin.setText(Html.fromHtml("Name: <b>" + name + "</b>"));*/
 
         //GOOGLE MAPS
-
-
         SupportMapFragment m = ((SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map));
         m.getMapAsync(this);
 
 
 
-        Button btnCarona = (Button)v.findViewById(R.id.btnCarona);
+        Button btnCarona = (Button)view.findViewById(R.id.btnCarona);
         btnCarona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,10 +107,8 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
             }
         });
 
-
-        return v;
+        return view;
     }
-
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
@@ -244,7 +243,7 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
     public void geocoding (Double lat, Double lng) throws IOException {
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
-        endereco.setText(addresses.get(0).getThoroughfare().toString() +","+ addresses.get(0).getFeatureName());
+        endereco.setText(addresses.get(0).getThoroughfare().toString() + "," + addresses.get(0).getFeatureName());
         pEndereco = addresses.get(0).getThoroughfare().toString();
         pNumero =  addresses.get(0).getFeatureName();
         pCidade =  addresses.get(0).getLocality();
@@ -254,6 +253,7 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
         Log.i("featuedabress",addresses.get(0).getFeatureName().toString());
         Log.i("locality",addresses.get(0).getLocality().toString());*/
     }
+
 
     @Override
     public void onConnectionSuspended(int arg0) {

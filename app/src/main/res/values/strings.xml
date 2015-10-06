@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name">RidesForMe</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_home">HomeActivity</string>
     <string name="title_filter_carona">Rides4Me - Filtrar Carona</string>
     <string name="field_origem_filter_carona">Endereço Origem</string>
     <string name="field_destino_filter_carona">Endereço Destino</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_home">Home</string>
+
     <string name="title_section1">Pedir Carona</string>
     <string name="title_section2">Oferecer Carona</string>
     <string name="title_section3">Perfil</string>
@@ -46,6 +45,16 @@
     <string name="btn_enviar_email_contato">Enviar</string>
     <string name="entrar_contato">Contato</string>
     <string name="title_activity_carona_passo2">CaronaPasso2Activity</string>
+    <string name="exit_dialog_content">Deseja sair do Rides4Me?</string>
+    <string name="exit_dialog_title">Sair</string>
+    <string name="exit_dialog_agree">Sim</string>
+    <string name="exit_dialog_desagree">Não</string>
+    <string name="confirm_exit">Pressione voltar novamente para sair</string>
+    <string name="login_progress_dialog">Entrando</string>
+    <string name="wait">Aguarde…</string>
+    <string name="cadastro_progress_dialog">Cadastrando</string>
+    <string name="openDrawer">Open</string>
+    <string name="closeDrawer">Close</string>
     <string name="title_activity_pesquisar_carona">PesquisarCaronaActivity</string>
     <string name="title_activity_filtro_carona">FiltroCaronaActivity</string>
     <string name="title_activity_filter_carona">FilterCaronaActivity</string>
