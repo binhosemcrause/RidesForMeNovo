@@ -80,6 +80,7 @@ public class HomeActivity extends AppCompatActivity {
         Fragment f = new MapHomeFragment();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, f)
+                    .addToBackStack(null)
                     .commit();
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -118,6 +119,7 @@ public class HomeActivity extends AppCompatActivity {
                         f = new MapHomeFragment();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.container, f)
+                                .addToBackStack(null)
                                 .commit();
                     }else if(position == 1){
                         Intent it = new Intent(getApplicationContext(), CaronaPasso1Activity.class);
@@ -126,11 +128,13 @@ public class HomeActivity extends AppCompatActivity {
                         f = new PerfilFragment();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.container, f)
+                                .addToBackStack(null)
                                 .commit();
                     }else if (position == 3){
                         f = new ContatoFragment();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.container, f)
+                                .addToBackStack(null)
                                 .commit();
                     }
                     return true;
