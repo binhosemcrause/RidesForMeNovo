@@ -41,10 +41,8 @@ public class RepositorioCarona implements Serializable{
     public Carona addCaronaMentira () {
         Carona c = new Carona();
         c.set_id(1);
-        c.setEndereco("av recife");
-        c.setCidade("Recife");
-
-
+        c.setRuaOrigem("av recife");
+        c.setCidadeOrigem("Recife");
         return c;
     }
 
@@ -54,7 +52,7 @@ public class RepositorioCarona implements Serializable{
         //caronas.add(addCaronaMentira());
 
         for(Carona carona : mCaronas){
-            if(carona.endereco.equals(endereco) && carona.enderecoDestino.equals(enderecoDestino)){
+            if(carona.RuaOrigem.equals(endereco) && carona.RuaDestino.equals(enderecoDestino)){
                 caronas.add(carona);
                 break;
             }

@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class CaronaPasso1Activity extends AppCompatActivity {
-    private TextView txtEndereco;
-    private TextView txtNumero;
-    private TextView txtCidade;
-    private TextView txtBairro;
+    private TextView txtEnderecoOrigem;
+    private TextView txtNumeroOrigem;
+    private TextView txtCidadeOrigem;
+    private TextView txtBairroOrigem;
 
     private TextView txtEnderecoDestino;
     private TextView txtNumeroDestino;
@@ -26,16 +26,17 @@ public class CaronaPasso1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_carona_passo1);
         Intent intent = getIntent();
         Bundle params = intent.getExtras();
-        txtEndereco = (TextView) findViewById(R.id.txtEnderecoOrigem);
-        txtNumero = (TextView) findViewById(R.id.txtNumeroOrigem);
-        txtCidade = (TextView) findViewById(R.id.txtCidadeOrigem);
-        txtBairro = (TextView) findViewById(R.id.txtBairroOrigem);
+        txtEnderecoOrigem = (TextView) findViewById(R.id.txtEnderecoOrigem);
+        txtNumeroOrigem = (TextView) findViewById(R.id.txtNumeroOrigem);
+        txtCidadeOrigem = (TextView) findViewById(R.id.txtCidadeOrigem);
+        txtBairroOrigem = (TextView) findViewById(R.id.txtBairroOrigem);
+
 
         if (params!=null) {
-            txtEndereco.setText(params.getString("endereco"));
-            txtNumero.setText(params.getString("numero"));
-            txtCidade.setText(params.getString("cidade"));
-            txtBairro.setText(params.getString("bairro"));
+            txtEnderecoOrigem.setText(params.getString("RuaOrigem"));
+            txtNumeroOrigem.setText(params.getString("numeroOrigem"));
+            txtCidadeOrigem.setText(params.getString("CidadeOrigem"));
+            txtBairroOrigem.setText(params.getString("BairroOrigem"));
         }
 
         txtEnderecoDestino = (TextView) findViewById(R.id.txtRuaDestino);
@@ -49,14 +50,14 @@ public class CaronaPasso1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bundle b = new Bundle();
-                b.putString("endereco",txtEndereco.getText().toString());
-                b.putString("numero",txtNumero.getText().toString());
-                b.putString("bairro",txtBairro.getText().toString());
-                b.putString("cidade",txtCidade.getText().toString());
-                b.putString("enderecoDestino",txtEnderecoDestino.getText().toString());
-                b.putString("bairroDestino",txtBairroDestino.getText().toString());
+                b.putString("RuaOrigem",txtEnderecoOrigem.getText().toString());
+                b.putString("numeroOrigem",txtNumeroOrigem.getText().toString());
+                b.putString("BairroOrigem",txtBairroOrigem.getText().toString());
+                b.putString("CidadeOrigem",txtCidadeOrigem.getText().toString());
+                b.putString("RuaDestino",txtEnderecoDestino.getText().toString());
+                b.putString("BairroDestino",txtBairroDestino.getText().toString());
                 b.putString("numeroDestino",txtNumeroDestino.getText().toString());
-                b.putString("cidadeDestino",txtCidadeDestino.getText().toString());
+                b.putString("CidadeDestino",txtCidadeDestino.getText().toString());
                 Intent intent = new Intent(CaronaPasso1Activity.this,CaronaPasso2Activity.class);
                 intent.putExtras(b);
                 startActivity(intent);
@@ -66,7 +67,6 @@ public class CaronaPasso1Activity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.localizacao, menu);
 
         return true;
@@ -74,17 +74,11 @@ public class CaronaPasso1Activity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

@@ -41,8 +41,18 @@ import java.util.List;
 
 public class CaronaPasso2Activity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
     private GoogleMap map;
-    private String endereco, numero, cidade,bairro;
-    private String enderecoDestino, numeroDestino, cidadeDestino,bairroDestino;
+    public String EstadoOrigem;
+    public String CidadeOrigem;
+    public String BairroOrigem;
+    public String RuaOrigem;
+    public String EstadoDestino;
+    public String CidadeDestino;
+    public String BairroDestino;
+    public String RuaDestino;
+    public String numeroOrigem;
+    public String numeroDestino;
+
+
     LatLng ltZoom;
     ArrayList<LatLng> markerPoints;
     List<Carona> mCaronas = new ArrayList<>();
@@ -60,15 +70,20 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
 
         Intent intent = getIntent();
         Bundle params = intent.getExtras();
-        endereco = params.getString("endereco");
-        numero = params.getString("numero");
-        cidade = params.getString("cidade");
-        bairro = params.getString("cidade");
 
-        enderecoDestino = params.getString("enderecoDestino");
+
+        EstadoOrigem = params.getString("EstadoOrigem");
+        CidadeOrigem = params.getString("CidadeOrigem");
+        BairroOrigem = params.getString("BairroOrigem");
+        RuaOrigem = params.getString("RuaOrigem");
+        numeroOrigem = params.getString("numeroOrigem");
+
+        EstadoDestino = params.getString("EstadoDestino");
+        CidadeDestino = params.getString("CidadeDestino");
+        BairroDestino = params.getString("BairroDestino");
+        RuaDestino = params.getString("RuaDestino");
         numeroDestino = params.getString("numeroDestino");
-        cidadeDestino = params.getString("cidadeDestino");
-        bairroDestino = params.getString("cidadeDestino");
+
 
         mBotaoSolicitarCarona = (Button)findViewById(R.id.btnSolicitarCarona);
         mBotaoSolicitarCarona.setOnClickListener(this);
@@ -77,7 +92,9 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
 
         markerPoints = new ArrayList<LatLng>();
 
-        String url = getDirectionsUrl(endereco+","+numero+","+bairro+","+cidade, enderecoDestino+","+numeroDestino+","+bairroDestino+","+cidadeDestino);
+
+
+        String url = getDirectionsUrl(RuaOrigem+","+numeroOrigem+","+BairroOrigem+","+CidadeOrigem, RuaDestino+","+numeroDestino+","+BairroOrigem+","+CidadeDestino);
         DownloadTask downloadTask = new DownloadTask();
         downloadTask.execute(url);
 
@@ -149,14 +166,15 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
     @Override
     public void onClick(View v) {
         Carona carona = new Carona();
-        carona.endereco = endereco;
+      /*  carona.endereco = endereco;
         carona.cidade = cidade;
         carona.bairro = bairro;
         carona.numero = numero;
         carona.enderecoDestino = enderecoDestino;
         carona.cidadeDestino = cidadeDestino;
         carona.bairroDestino = bairroDestino;
-        carona.numeroDestino = numeroDestino;
+        carona.numeroDestino = numeroDestino;*/
+
         repCarona.cadastrarCarona(carona);
         mCaronas = repCarona.loadCaronas();
         Intent intent = new Intent(this, PesquisarCaronaActivity.class);

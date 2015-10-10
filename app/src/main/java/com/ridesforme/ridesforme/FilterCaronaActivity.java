@@ -44,8 +44,8 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         Carona carona = new Carona();
-        carona.endereco = mTxtEnderecoOrigem.getText().toString();
-        carona.enderecoDestino = mTxtEnderecoDestino.getText().toString();
+        carona.RuaOrigem = mTxtEnderecoOrigem.getText().toString();
+        carona.RuaDestino = mTxtEnderecoDestino.getText().toString();
         Intent it = new Intent(this, PesquisarCaronaActivity.class);
         it.putExtra("carona_filtrada", carona);
         startActivity(it);

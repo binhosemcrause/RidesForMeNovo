@@ -44,13 +44,13 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
         Carona carona = (Carona)it.getSerializableExtra("carona_selecionada");
 
         if(carona != null){
-           mTxtEnderecoOrigem.setText(carona.endereco);
+          /* mTxtEnderecoOrigem.setText(carona.endereco);
            mTxtCidadeOrigem.setText(carona.cidade);
            mTxtBairroOrigem.setText(carona.bairro);
            mTxtNumeroOrigem.setText(carona.numero);
            mTxtEnderecoDestino.setText(carona.enderecoDestino);
            mTxtCidadeDestino.setText(carona.cidadeDestino);
-           mTxtBairroDestino.setText(carona.bairroDestino);
+           mTxtBairroDestino.setText(carona.bairroDestino);*/
 //           mTxtNumeroDestino.setText(carona.numeroDestino);
         }
 
