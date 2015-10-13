@@ -36,22 +36,22 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB998nusPEOfUw3_1alBYD-G7hW7sARrag" /> -->
 
-        <!-- Guilherme -->
+        <!-- Guilherme
         <meta-data
             android:name="com.google.android.geo.API_KEY"
                 android:value="AIzaSyBYBCLnMS-RcA344rMkiP6VI-a8wFyMHqU" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version" /> -->
 
-        <!-- Robson
+        <!-- Robson -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA88MPBXIpK1cgGLoAnh475JYwHm5pC_S8" />
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />-->
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".LoginActivity"
@@ -62,7 +62,8 @@
         <activity
             android:name=".CaronaPasso1Activity"
             android:label="@string/title_activity_localizacao_carona"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/Rides4MeTheme2">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
@@ -70,7 +71,8 @@
         <activity
             android:name=".CaronaPasso2Activity"
             android:label="@string/title_activity_carona_passo2"
-            android:parentActivityName=".CaronaPasso1Activity">
+            android:parentActivityName=".CaronaPasso1Activity"
+            android:theme="@style/Rides4MeTheme2">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CaronaPasso1Activity" />
@@ -88,7 +90,7 @@
             android:name=".PesquisarCaronaActivity"
             android:label="@string/title_activity_pesquisar_carona"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            android:theme="@style/Rides4MeTheme2" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ridesforme.ridesforme.HomeActivity" />

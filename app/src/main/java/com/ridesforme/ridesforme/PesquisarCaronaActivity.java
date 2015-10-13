@@ -1,6 +1,8 @@
 package com.ridesforme.ridesforme;
 
+import android.app.DownloadManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +16,8 @@ import android.widget.ListView;
 import com.ridesforme.ridesforme.adapter.CaronaAdapter;
 import com.ridesforme.ridesforme.basicas.Carona;
 import com.ridesforme.ridesforme.repositorios.RepositorioCarona;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 
 import java.util.List;
 
@@ -31,14 +35,6 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mListaCarona = (ListView)findViewById(R.id.listCarona);
@@ -47,7 +43,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         Intent it = getIntent();
         Carona carona = (Carona)it.getSerializableExtra("carona_filtrada");
         if(carona!=null){
-            List<Carona> caronas = caronaDAO.loadCaronas(carona.endereco, carona.enderecoDestino);
+            List<Carona> caronas = caronaDAO.loadCaronas(carona.RuaOrigem, carona.RuaDestino);
             CaronaAdapter adapter = new CaronaAdapter(getApplicationContext(), caronas);
             mListaCarona.setAdapter(adapter);
             adapter.notifyDataSetChanged();
@@ -58,7 +54,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
            List<Carona> caronas = (List<Carona>)intent.getSerializableExtra("listaCaronas");
             //tratar erroo-------------------------------------------------
             CaronaAdapter adapter = new CaronaAdapter(getApplicationContext(), caronas);
-            mListaCarona.setAdapter(adapter);
+//            mListaCarona.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
         
@@ -79,5 +75,19 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         Intent intent = new Intent(this, DetalhePesquisaCaronaActivity.class);
         intent.putExtra("carona_selecionada", carona);
         startActivity(intent);
+    }
+
+    /**
+     * Created by Robson on 10/10/2015.
+     */
+    class ListaCaronas extends AsyncTask<Void, Void, Carona>{
+
+        @Override
+        protected Carona doInBackground(Void... params) {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            Request request = new Request.Builder().url("").build();
+
+            return null;
+        }
     }
 }
