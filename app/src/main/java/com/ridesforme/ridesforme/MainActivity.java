@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
             logado = true;
         }
         Handler handler = new Handler();
-        handler.postDelayed(this, 4000);
+        handler.postDelayed(this, 2000);
     }
     @Override
     public void run() {
