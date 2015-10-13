@@ -166,20 +166,19 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
     @Override
     public void onClick(View v) {
         Carona carona = new Carona();
-      /*  carona.endereco = endereco;
-        carona.cidade = cidade;
-        carona.bairro = bairro;
-        carona.numero = numero;
-        carona.enderecoDestino = enderecoDestino;
-        carona.cidadeDestino = cidadeDestino;
-        carona.bairroDestino = bairroDestino;
-        carona.numeroDestino = numeroDestino;*/
+        carona.RuaOrigem = RuaOrigem;
+        carona.CidadeOrigem = CidadeOrigem;
+        carona.BairroOrigem = BairroOrigem;
+        carona.RuaDestino = RuaDestino;
+        carona.CidadeDestino = CidadeDestino;
+        carona.BairroDestino = BairroDestino;
 
         repCarona.cadastrarCarona(carona);
         mCaronas = repCarona.loadCaronas();
         Intent intent = new Intent(this, PesquisarCaronaActivity.class);
         intent.putExtra("listaCaronas", (Serializable)mCaronas);
         startActivity(intent);
+        Log.i("Carona Cadastrada", mCaronas.toString()+ mCaronas.size());
 
     }
 

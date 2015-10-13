@@ -36,14 +36,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/adtPasso2Valor"
                     android:layout_weight="1"
-                    android:hint="Valor"/>
+                    android:hint="Valor "/>
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/edtPasso2Vagas"
                     android:layout_weight="1"
-                    android:hint="Vagas"/>
+                    android:hint="Vagas*"/>
             </LinearLayout>
 
 
@@ -53,13 +53,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linearLayout2"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true">
+                android:layout_alignParentEnd="true"
+                android:id="@+id/linearLayout3">
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/editText2"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:hint="Data"/>
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -68,8 +70,41 @@
                     android:layout_weight="1"
                     android:layout_below="@+id/linearLayout2"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    android:hint="Hora"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout3"
+                android:id="@+id/linearLayout4">
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ida e Volta"
+                            android:id="@+id/radioButton" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Só Ida"
+                            android:id="@+id/radioButton2"
+                            android:layout_gravity="center_horizontal" />
+                    </LinearLayout>
+                </RadioGroup>
             </LinearLayout>
 
             <Button
@@ -81,6 +116,18 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_above="@+id/btnSolicitarCarona"
+                android:layout_below="@+id/linearLayout4"
+                android:hint="Descrição da Carona"/>
 
         </RelativeLayout>
 
