@@ -60,7 +60,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
             Intent intent = getIntent();
             List<Carona> caronas = (List<Carona>) intent.getSerializableExtra("listaCaronas");
             CaronaAdapter adapter = new CaronaAdapter(getApplicationContext(), caronas);
-            //mListaCarona.setAdapter(adapter);
+            mListaCarona.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
         mListaCarona.setOnItemClickListener(this);
@@ -90,7 +90,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         @Override
         protected Carona doInBackground(Void... params) {
             OkHttpClient okHttpClient = new OkHttpClient();
-            Request request = new Request.Builder().url("").build();
+
 
             return null;
         }

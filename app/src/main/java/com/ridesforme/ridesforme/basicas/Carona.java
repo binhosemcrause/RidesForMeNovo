@@ -40,7 +40,7 @@ public class Carona implements Serializable{
     public String TipoOferta;
 
     public Date DataHoraSaidaIda;
-    public String DataHoraSaidaVolta;
+    public Date DataHoraSaidaVolta;
 
     public String DiaDaSemana;
     public String Status;
@@ -58,28 +58,7 @@ public class Carona implements Serializable{
         Classificacao = classificacao;
     }
 
-    public Carona(Integer caronaId, String estadoOrigem, String cidadeOrigem, String bairroOrigem, String ruaOrigem, String estadoDestino, String cidadeDestino, String bairroDestino, String ruaDestino, String valor, String descricaoCarona, String tipoVeiculo, String descricaoVeiculo, String vagas, String tipoTrajeto, String tipoOferta, Date dataHoraSaidaIda, String dataHoraSaidaVolta, String diaDaSemana, String status) {
-        CaronaId = caronaId;
-        EstadoOrigem = estadoOrigem;
-        CidadeOrigem = cidadeOrigem;
-        BairroOrigem = bairroOrigem;
-        RuaOrigem = ruaOrigem;
-        EstadoDestino = estadoDestino;
-        CidadeDestino = cidadeDestino;
-        BairroDestino = bairroDestino;
-        RuaDestino = ruaDestino;
-        Valor = valor;
-        DescricaoCarona = descricaoCarona;
-        TipoVeiculo = tipoVeiculo;
-        DescricaoVeiculo = descricaoVeiculo;
-        Vagas = vagas;
-        TipoTrajeto = tipoTrajeto;
-        TipoOferta = tipoOferta;
-        DataHoraSaidaIda = dataHoraSaidaIda;
-        DataHoraSaidaVolta = dataHoraSaidaVolta;
-        DiaDaSemana = diaDaSemana;
-        Status = status;
-    }
+
 
     public Carona(){}
 
@@ -219,12 +198,36 @@ public class Carona implements Serializable{
         TipoOferta = tipoOferta;
     }
 
-
-    public String getDataHoraSaidaVolta() {
+    public Date getDataHoraSaidaVolta() {
         return DataHoraSaidaVolta;
     }
 
-    public void setDataHoraSaidaVolta(String dataHoraSaidaVolta) {
+    public Carona(Integer caronaId, String estadoOrigem, String cidadeOrigem, String bairroOrigem, Integer usuarioID, String ruaOrigem, String estadoDestino, String cidadeDestino, String bairroDestino, String ruaDestino, String valor, String descricaoCarona, String tipoVeiculo, String descricaoVeiculo, String vagas, String tipoTrajeto, String tipoOferta, Date dataHoraSaidaIda, Date dataHoraSaidaVolta, String diaDaSemana, String status, Integer classificacao) {
+        CaronaId = caronaId;
+        EstadoOrigem = estadoOrigem;
+        CidadeOrigem = cidadeOrigem;
+        BairroOrigem = bairroOrigem;
+        UsuarioID = usuarioID;
+        RuaOrigem = ruaOrigem;
+        EstadoDestino = estadoDestino;
+        CidadeDestino = cidadeDestino;
+        BairroDestino = bairroDestino;
+        RuaDestino = ruaDestino;
+        Valor = valor;
+        DescricaoCarona = descricaoCarona;
+        TipoVeiculo = tipoVeiculo;
+        DescricaoVeiculo = descricaoVeiculo;
+        Vagas = vagas;
+        TipoTrajeto = tipoTrajeto;
+        TipoOferta = tipoOferta;
+        DataHoraSaidaIda = dataHoraSaidaIda;
+        DataHoraSaidaVolta = dataHoraSaidaVolta;
+        DiaDaSemana = diaDaSemana;
+        Status = status;
+        Classificacao = classificacao;
+    }
+
+    public void setDataHoraSaidaVolta(Date dataHoraSaidaVolta) {
         DataHoraSaidaVolta = dataHoraSaidaVolta;
     }
 

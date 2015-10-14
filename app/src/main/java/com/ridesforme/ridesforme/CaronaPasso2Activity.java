@@ -133,9 +133,15 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
                 //TESTE
                 carona.Classificacao = 1;
                 carona.UsuarioID = 1;
+                carona.TipoVeiculo = "1";
+                carona.Vagas = "2";
+                carona.TipoOferta = "1";
+                carona.Status = "1";
+                carona.DiaDaSemana = "2222222";
+                carona.DataHoraSaidaVolta = new Date();
                 Date date = null;
                 try {
-                    date = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateString);
+                    date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(dateString);
                     carona.DataHoraSaidaIda = date;
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -186,7 +192,7 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
-                        .url("http://192.168.25.34:8080/rpg/carona/cadastrarCarona")
+                        .url("http://186.212.231.219:8080/rpg/carona/cadastrarCarona")
                         .post(requestBody)
                         .build();
                 try {
