@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,9 +26,15 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.ridesforme.ridesforme.basicas.Carona;
-import com.ridesforme.ridesforme.directions.DirectionsJSONParser;
+import com.ridesforme.ridesforme.util.DirectionsJSONParser;
 import com.ridesforme.ridesforme.repositorios.RepositorioCarona;
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,11 +43,15 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-public class CaronaPasso2Activity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
+public class CaronaPasso2Activity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap map;
     public String EstadoOrigem;
     public String CidadeOrigem;
@@ -53,11 +65,13 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
     public String numeroDestino;
 
 
+
+
     LatLng ltZoom;
     ArrayList<LatLng> markerPoints;
     List<Carona> mCaronas = new ArrayList<>();
     Button mBotaoSolicitarCarona;
-    RepositorioCarona repCarona = RepositorioCarona.getSingleton();
+    //RepositorioCarona repCarona = RepositorioCarona.getSingleton();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,21 +86,80 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
         Bundle params = intent.getExtras();
 
 
-        EstadoOrigem = params.getString("EstadoOrigem");
+       // EstadoOrigem = params.getString("EstadoOrigem");
         CidadeOrigem = params.getString("CidadeOrigem");
         BairroOrigem = params.getString("BairroOrigem");
         RuaOrigem = params.getString("RuaOrigem");
         numeroOrigem = params.getString("numeroOrigem");
 
-        EstadoDestino = params.getString("EstadoDestino");
+     //   EstadoDestino = params.getString("EstadoDestino");
         CidadeDestino = params.getString("CidadeDestino");
         BairroDestino = params.getString("BairroDestino");
         RuaDestino = params.getString("RuaDestino");
         numeroDestino = params.getString("numeroDestino");
 
+        final EditText Valor = (EditText)findViewById(R.id.edtPasso2Valor);
+        final EditText DescricaoCarona = (EditText)findViewById(R.id.edtPasso2Descricao);
+        final EditText Vagas = (EditText)findViewById(R.id.edtPasso2Vagas);
+        final EditText Data = (EditText)findViewById(R.id.edtPasso2Data);
+        final EditText Hora = (EditText)findViewById(R.id.edtPasso2Hora);
+        final RadioGroup TipoTrajeto = (RadioGroup)findViewById(R.id.radioGroup);
+
+
 
         mBotaoSolicitarCarona = (Button)findViewById(R.id.btnSolicitarCarona);
-        mBotaoSolicitarCarona.setOnClickListener(this);
+
+        mBotaoSolicitarCarona.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Gson gson = new Gson();
+
+                Carona carona = new Carona();
+                carona.RuaOrigem = RuaOrigem;
+                carona.CidadeOrigem = CidadeOrigem;
+                carona.BairroOrigem = BairroOrigem;
+                // carona.EstadoOrigem = EstadoOrigem;
+                carona.RuaDestino = RuaDestino;
+                //  carona.EstadoOrigem = EstadoOrigem;
+                carona.CidadeDestino = CidadeDestino;
+                carona.BairroDestino = BairroDestino;
+
+                carona.Valor = Valor.getText().toString();
+                carona.DescricaoCarona = DescricaoCarona.getText().toString();
+                int index = TipoTrajeto.indexOfChild(findViewById(TipoTrajeto.getCheckedRadioButtonId()));
+                carona.TipoTrajeto = Integer.toString(index);
+                String dateString = Data.getText().toString() +" "+ Hora.getText().toString();
+
+                //TESTE
+                carona.Classificacao = 1;
+                carona.UsuarioID = 1;
+                Date date = null;
+                try {
+                    date = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateString);
+                    carona.DataHoraSaidaIda = date;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String json = gson.toJson(carona);
+                Boolean b;
+                try {
+                    b = new CadastroControllerTask().execute(json).get();
+                    Log.i("json",json);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                //repCarona.cadastrarCarona(carona);
+                //mCaronas = repCarona.loadCaronas();
+                Intent intent = new Intent(getApplicationContext(), PesquisarCaronaActivity.class);
+                //intent.putExtra("listaCaronas", (Serializable)mCaronas);
+                startActivity(intent);
+                Log.i("Carona Cadastrada", mCaronas.toString()+ mCaronas.size());
+
+            }
+        });
+
 
         //GOOGGLE MAPS
 
@@ -99,6 +172,39 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
         downloadTask.execute(url);
 
 
+    }
+
+    public static class CadastroControllerTask extends AsyncTask<String, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody requestBody = new MultipartBuilder()
+                        .type(MultipartBuilder.FORM)
+                        .addFormDataPart("carona",params[0])
+                        .build();
+                Request request = new Request.Builder()
+                        //teste login servidor casa felipe
+                        .url("http://192.168.25.34:8080/rpg/carona/cadastrarCarona")
+                        .post(requestBody)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    String responseString = response.body().string();
+                    response.body().close();
+                    Log.v("a", responseString);
+                    boolean aaa = Boolean.parseBoolean(responseString);
+                    return  aaa;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
     }
 
     private String getDirectionsUrl(String origin,String dest){
@@ -163,24 +269,6 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
         return data;
     }
 
-    @Override
-    public void onClick(View v) {
-        Carona carona = new Carona();
-        carona.RuaOrigem = RuaOrigem;
-        carona.CidadeOrigem = CidadeOrigem;
-        carona.BairroOrigem = BairroOrigem;
-        carona.RuaDestino = RuaDestino;
-        carona.CidadeDestino = CidadeDestino;
-        carona.BairroDestino = BairroDestino;
-
-        repCarona.cadastrarCarona(carona);
-        mCaronas = repCarona.loadCaronas();
-        Intent intent = new Intent(this, PesquisarCaronaActivity.class);
-        intent.putExtra("listaCaronas", (Serializable)mCaronas);
-        startActivity(intent);
-        Log.i("Carona Cadastrada", mCaronas.toString()+ mCaronas.size());
-
-    }
 
     // Fetches data from url passed
     private class DownloadTask extends AsyncTask<String, Void, String> {

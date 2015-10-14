@@ -31,10 +31,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.ridesforme.ridesforme.HomeActivity;
 import com.ridesforme.ridesforme.MainActivity;
 import com.ridesforme.ridesforme.PesquisarCaronaActivity;
 import com.ridesforme.ridesforme.R;
 import com.ridesforme.ridesforme.UserSessionManager;
+import com.ridesforme.ridesforme.util.EnderecoCompletoUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -54,10 +56,13 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
     private String pEndereco;
     private String pNumero;
     private String pCidade;
+    public EnderecoCompletoUtil enderecoUtil;
+    private Bundle bundleAll;
 
     private ContatoFragment.OnFragmentInteractionListener mListener;
 
     public MapHomeFragment() {
+
     }
 
     @Override
@@ -83,6 +88,9 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
             // Building the GoogleApi client
             buildGoogleApiClient();
         }
+        enderecoUtil = new EnderecoCompletoUtil();
+        bundleAll = new Bundle();
+
         endereco = (TextView) view.findViewById(R.id.endereco);
         session = new UserSessionManager(getActivity());
         if (session.checkLogin());
@@ -247,12 +255,21 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
         pEndereco = addresses.get(0).getThoroughfare().toString();
         pNumero =  addresses.get(0).getFeatureName();
         pCidade =  addresses.get(0).getLocality();
- /*       Log.i("tudo", addresses.get(0).toString());
+        bundleAll.putString("endereco",pEndereco);
+        bundleAll.putString("cidade", pCidade);
+        bundleAll.putString("numero", pNumero);
+
+        //enderecoUtil.setEndereco(pEndereco);
+        //enderecoUtil.setCidade(pCidade);
+        //enderecoUtil.setNumero(pNumero);
+
+ /*     Log.i("tudo", addresses.get(0).toString());
         Log.i("endereco", addresses.get(0).getAddressLine(0).toString());
         Log.i("postalcode",addresses.get(0).getPostalCode().toString());
         Log.i("featuedabress",addresses.get(0).getFeatureName().toString());
         Log.i("locality",addresses.get(0).getLocality().toString());*/
     }
+
 
 
     @Override
@@ -278,9 +295,9 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
 
     }
 
+
     @Override
     public void onMarkerDragEnd(Marker marker) {
-        Toast.makeText(getActivity(), "movido", Toast.LENGTH_SHORT).show();
         try {
             Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
@@ -289,7 +306,6 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
             pNumero = addresses.get(0).getFeatureName();
             pCidade = addresses.get(0).getLocality();
             Log.i("endereco", addresses.get(0).getAddressLine(0).toString());
-            Toast.makeText(getActivity(), "movido", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             try {
                 mLastLocation = LocationServices.FusedLocationApi.getLastLocation(

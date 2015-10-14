@@ -24,6 +24,13 @@ public class CaronaPasso1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carona_passo1);
+
+        txtEnderecoDestino = (TextView) findViewById(R.id.txtRuaDestino);
+        txtNumeroDestino = (TextView) findViewById(R.id.txtNumeroDestino);
+        txtCidadeDestino = (TextView) findViewById(R.id.txtCidadeDestino);
+        txtBairroDestino = (TextView) findViewById(R.id.txtBairroDestino);
+
+
         Intent intent = getIntent();
         Bundle params = intent.getExtras();
         txtEnderecoOrigem = (TextView) findViewById(R.id.txtEnderecoOrigem);
@@ -39,10 +46,7 @@ public class CaronaPasso1Activity extends AppCompatActivity {
             txtBairroOrigem.setText(params.getString("BairroOrigem"));
         }
 
-        txtEnderecoDestino = (TextView) findViewById(R.id.txtRuaDestino);
-        txtNumeroDestino = (TextView) findViewById(R.id.txtNumeroDestino);
-        txtCidadeDestino = (TextView) findViewById(R.id.txtCidadeDestino);
-        txtBairroDestino = (TextView) findViewById(R.id.txtBairroDestino);
+
 
 
         Button proxPasso = (Button) findViewById(R.id.button4);

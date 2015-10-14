@@ -40,7 +40,7 @@ public class RepositorioCarona implements Serializable{
 
     public Carona addCaronaMentira () {
         Carona c = new Carona();
-        c.set_id(1);
+        c.CaronaId = 1;
         c.setRuaOrigem("av recife");
         c.setCidadeOrigem("Recife");
         return c;

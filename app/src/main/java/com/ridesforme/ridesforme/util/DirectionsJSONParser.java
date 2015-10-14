@@ -1,4 +1,4 @@
-package com.ridesforme.ridesforme.directions;
+package com.ridesforme.ridesforme.util;
 
 import com.google.android.gms.maps.model.LatLng;
 

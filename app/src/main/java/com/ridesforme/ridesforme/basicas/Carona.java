@@ -9,29 +9,57 @@ import java.util.Date;
  */
 public class Carona implements Serializable{
 
-    public int _id;
+    public Integer CaronaId;
     public String EstadoOrigem;
     public String CidadeOrigem;
     public String BairroOrigem;
+    public Integer UsuarioID;
     public String RuaOrigem;
     public String EstadoDestino;
     public String CidadeDestino;
     public String BairroDestino;
     public String RuaDestino;
+
     public String Valor;
     public String DescricaoCarona;
+
+    public Integer getUsuarioID() {
+        return UsuarioID;
+    }
+
+    public void setUsuarioID(Integer usuarioID) {
+        UsuarioID = usuarioID;
+    }
+
     public String TipoVeiculo;
     public String DescricaoVeiculo;
+
     public String Vagas;
+
     public String TipoTrajeto;
     public String TipoOferta;
-    public String DataHoraSaidaIda;
+
+    public Date DataHoraSaidaIda;
     public String DataHoraSaidaVolta;
+
     public String DiaDaSemana;
     public String Status;
+    public Integer Classificacao;
 
-    public Carona(int _id, String estadoOrigem, String cidadeOrigem, String bairroOrigem, String ruaOrigem, String estadoDestino, String cidadeDestino, String bairroDestino, String ruaDestino, String valor, String descricaoCarona, String tipoVeiculo, String descricaoVeiculo, String vagas, String tipoTrajeto, String tipoOferta, String dataHoraSaidaIda, String dataHoraSaidaVolta, String diaDaSemana, String status) {
-        this._id = _id;
+    public void setCaronaId(Integer caronaId) {
+        CaronaId = caronaId;
+    }
+
+    public Integer getClassificacao() {
+        return Classificacao;
+    }
+
+    public void setClassificacao(Integer classificacao) {
+        Classificacao = classificacao;
+    }
+
+    public Carona(Integer caronaId, String estadoOrigem, String cidadeOrigem, String bairroOrigem, String ruaOrigem, String estadoDestino, String cidadeDestino, String bairroDestino, String ruaDestino, String valor, String descricaoCarona, String tipoVeiculo, String descricaoVeiculo, String vagas, String tipoTrajeto, String tipoOferta, Date dataHoraSaidaIda, String dataHoraSaidaVolta, String diaDaSemana, String status) {
+        CaronaId = caronaId;
         EstadoOrigem = estadoOrigem;
         CidadeOrigem = cidadeOrigem;
         BairroOrigem = bairroOrigem;
@@ -55,12 +83,20 @@ public class Carona implements Serializable{
 
     public Carona(){}
 
-    public int get_id() {
-        return _id;
+    public int getCaronaId() {
+        return CaronaId;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setCaronaId(int caronaId) {
+        CaronaId = caronaId;
+    }
+
+    public Date getDataHoraSaidaIda() {
+        return DataHoraSaidaIda;
+    }
+
+    public void setDataHoraSaidaIda(Date dataHoraSaidaIda) {
+        DataHoraSaidaIda = dataHoraSaidaIda;
     }
 
     public String getEstadoOrigem() {
@@ -183,13 +219,6 @@ public class Carona implements Serializable{
         TipoOferta = tipoOferta;
     }
 
-    public String getDataHoraSaidaIda() {
-        return DataHoraSaidaIda;
-    }
-
-    public void setDataHoraSaidaIda(String dataHoraSaidaIda) {
-        DataHoraSaidaIda = dataHoraSaidaIda;
-    }
 
     public String getDataHoraSaidaVolta() {
         return DataHoraSaidaVolta;

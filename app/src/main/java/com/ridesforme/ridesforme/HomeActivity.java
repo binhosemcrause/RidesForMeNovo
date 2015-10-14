@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -123,6 +124,8 @@ public class HomeActivity extends AppCompatActivity {
                                 .commit();
                     }else if(position == 1){
                         Intent it = new Intent(getApplicationContext(), CaronaPasso1Activity.class);
+
+                        //Log.i("end",params.getString("endereco"));
                         startActivity(it);
                     }else if(position == 2){
                         f = new PerfilFragment();
