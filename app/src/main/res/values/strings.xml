@@ -55,7 +55,7 @@
     <string name="cadastro_progress_dialog">Cadastrando</string>
     <string name="openDrawer">Open</string>
     <string name="closeDrawer">Close</string>
-    <string name="title_activity_pesquisar_carona">PesquisarCaronaActivity</string>
+    <string name="title_activity_pesquisar_carona">Lista Caronas</string>
     <string name="title_activity_filtro_carona">FiltroCaronaActivity</string>
     <string name="title_activity_filter_carona">FilterCaronaActivity</string>
     <string name="title_activity_detalhe_pesquisa_carona">DetalhePesquisaCaronaActivity</string>
