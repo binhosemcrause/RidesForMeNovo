@@ -53,9 +53,6 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
     private Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
     private TextView endereco;
-    private String pEndereco;
-    private String pNumero;
-    private String pCidade;
     public EnderecoCompletoUtil enderecoUtil;
     private Bundle bundleAll;
 
@@ -252,12 +249,12 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
         endereco.setText(addresses.get(0).getThoroughfare().toString() + "," + addresses.get(0).getFeatureName());
-        pEndereco = addresses.get(0).getThoroughfare().toString();
-        pNumero =  addresses.get(0).getFeatureName();
-        pCidade =  addresses.get(0).getLocality();
-        bundleAll.putString("endereco",pEndereco);
-        bundleAll.putString("cidade", pCidade);
-        bundleAll.putString("numero", pNumero);
+        ((HomeActivity) getActivity()).pEndereco = addresses.get(0).getThoroughfare();
+        ((HomeActivity) getActivity()).pNumero =  addresses.get(0).getFeatureName();
+        ((HomeActivity) getActivity()).pCidade =  addresses.get(0).getLocality();
+        bundleAll.putString("endereco",((HomeActivity) getActivity()).pEndereco);
+        bundleAll.putString("cidade",((HomeActivity) getActivity()).pCidade);
+        bundleAll.putString("numero", ((HomeActivity) getActivity()).pNumero);
 
         //enderecoUtil.setEndereco(pEndereco);
         //enderecoUtil.setCidade(pCidade);
@@ -298,7 +295,7 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
-        try {
+        /*try {
             Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
             endereco.setText(addresses.get(0).getAddressLine(0).toString());
@@ -323,6 +320,6 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
 
 
             e.printStackTrace();
-        }
+        }*/
     }
 }

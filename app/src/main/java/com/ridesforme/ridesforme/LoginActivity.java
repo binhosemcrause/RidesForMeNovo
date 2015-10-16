@@ -29,6 +29,8 @@ public class LoginActivity extends Activity {
     EditText txtLogin;
     EditText txtPassword;
     Boolean exit = false;
+    MaterialDialog mDialog;
+
 
     @Override
     public void onBackPressed() {
@@ -49,6 +51,14 @@ public class LoginActivity extends Activity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if(mDialog != null){
+            mDialog.dismiss();
+        }
+    }
+
+    @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -63,7 +73,7 @@ public class LoginActivity extends Activity {
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MaterialDialog.Builder(LoginActivity.this)
+                mDialog = new MaterialDialog.Builder(LoginActivity.this)
                         .title(R.string.login_progress_dialog)
                         .content(R.string.wait)
                         .progress(true, 0)
@@ -78,6 +88,8 @@ public class LoginActivity extends Activity {
                 finish();
             }
         });
+
+
 
 
 

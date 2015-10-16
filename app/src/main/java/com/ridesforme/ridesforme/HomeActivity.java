@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +45,10 @@ public class HomeActivity extends AppCompatActivity {
     RecyclerView.LayoutManager mLayoutManager;            // Declaring Layout Manager as a linear layout manager
     DrawerLayout Drawer;                                  // Declaring DrawerLayout
     ActionBarDrawerToggle mDrawerToggle;                  // Declaring Action Bar Drawer Toggle
+
+    public String pEndereco;
+    public String pNumero;
+    public String pCidade;
 
     @Override
     public void onBackPressed() {
@@ -124,8 +127,9 @@ public class HomeActivity extends AppCompatActivity {
                                 .commit();
                     }else if(position == 1){
                         Intent it = new Intent(getApplicationContext(), CaronaPasso1Activity.class);
-
-                        //Log.i("end",params.getString("endereco"));
+                        it.putExtra("endereco", pEndereco);
+                        it.putExtra("numero", pNumero);
+                        it.putExtra("cidade", pCidade);
                         startActivity(it);
                     }else if(position == 2){
                         f = new PerfilFragment();

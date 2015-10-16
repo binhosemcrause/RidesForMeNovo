@@ -40,11 +40,12 @@ public class CaronaPasso1Activity extends AppCompatActivity {
 
 
         if (params!=null) {
-            txtEnderecoOrigem.setText(params.getString("RuaOrigem"));
-            txtNumeroOrigem.setText(params.getString("numeroOrigem"));
-            txtCidadeOrigem.setText(params.getString("CidadeOrigem"));
-            txtBairroOrigem.setText(params.getString("BairroOrigem"));
+            txtEnderecoOrigem.setText(params.getString("endereco"));
+            txtNumeroOrigem.setText(params.getString("numero"));
+            txtCidadeOrigem.setText(params.getString("cidade"));
+            //  txtBairroOrigem.setText(params.getString("bairro"));
         }
+
 
 
 
