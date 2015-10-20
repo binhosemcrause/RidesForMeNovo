@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import com.ridesforme.ridesforme.basicas.Carona;
+import com.ridesforme.ridesforme.util.NotificationUtils;
+
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +39,7 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         Carona carona = new Carona();
+        NotificationUtils.criarNotificacao(getApplicationContext(), "teste", 1);
         carona.setBairroOrigem(bairroOridem.getText().toString());
         carona.setBairroDestino(bairroDestino.getText().toString());
         Intent it = new Intent(this, PesquisarCaronaActivity.class);
