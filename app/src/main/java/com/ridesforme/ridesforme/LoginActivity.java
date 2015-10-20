@@ -176,7 +176,7 @@ public class LoginActivity extends Activity {
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
-                        .url("http://179.181.41.70:8080/rpg/usuario/login")
+                        .url("http://187.58.111.227:8080/rpg/usuario/login")
                         .post(requestBody)
                         .build();
 

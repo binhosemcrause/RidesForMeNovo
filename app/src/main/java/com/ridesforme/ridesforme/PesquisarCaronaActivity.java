@@ -4,16 +4,20 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.ridesforme.ridesforme.adapter.CaronaAdapter;
 import com.ridesforme.ridesforme.basicas.Carona;
 import com.ridesforme.ridesforme.repositorios.RepositorioCarona;
+import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -31,7 +35,11 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
     private static final int REQUEST_CODE = 1;
     private RepositorioCarona caronaDAO = RepositorioCarona.getSingleton();
     private List<Carona> mCaronas;
+    private List<Carona> mCaronasFiltro;
     private ListarCaronasTask mTask;
+    private ListarCaronasFiltroTask mTaskFiltro;
+    private String bairroOridem;
+    private String bairroDestino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +57,29 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         mBotaoFiltrarCarona = (Button) findViewById(R.id.btnFiltrarCarona);
         mBotaoFiltrarCarona.setOnClickListener(this);
         mCaronas = new ArrayList<>();
+        mCaronasFiltro = new ArrayList<>();
         mTask = new ListarCaronasTask();
-        mTask.execute();
+        mTaskFiltro = new ListarCaronasFiltroTask();
+
+
+        String filtro = getIntent().getStringExtra("filtro");
+        if (filtro!=null) {
+            if (getIntent() != null && filtro.equals("true")) {
+                //mListViewCarona.invalidate();
+                Intent it = getIntent();
+                Carona carona = (Carona)it.getSerializableExtra("carona_filtrada");
+                Log.i("carona",carona.getBairroDestino());
+                Log.i("carona2",carona.getBairroOrigem());
+                bairroOridem = carona.getBairroOrigem();
+                bairroDestino = carona.getBairroDestino();
+                mTaskFiltro.execute(bairroOridem,bairroDestino);
+                Log.i("zerou", "zerou");
+            }
+        } else {
+            mTask.execute();
+        }
+
+
         mListViewCarona.setOnItemClickListener(this);
 
     }
@@ -78,7 +107,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
             Request request;
 
             try {
-                url = "http://179.181.41.70:8080/rpg/carona/getAllCarona";
+                url = "http://187.58.111.227:8080/rpg/carona/getAllCarona";
                 request = new Request.Builder()
                         .url(url)
                         .build();
@@ -153,6 +182,102 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         protected void onPostExecute(List<Carona> caronas) {
             super.onPostExecute(caronas);
             mListViewCarona.setAdapter(new CaronaAdapter(PesquisarCaronaActivity.this, mCaronas));
+            Log.i("done","done");
+
+        }
+    }
+
+    public class ListarCaronasFiltroTask extends AsyncTask<String, Void, List<Carona>> {
+        @Override
+        protected List<Carona> doInBackground(String... params) {
+            String url;
+
+
+            try {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody requestBody = new MultipartBuilder()
+                        .type(MultipartBuilder.FORM)
+                        .addFormDataPart("BairroOrigem", params[0])
+                        .addFormDataPart("BairroDestino", params[1])
+                        .build();
+                url = "http://187.58.111.227:8080/rpg/carona/getCaronaFiltro";
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(requestBody)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                String jsonStr = response.body().string();
+                Log.i("pesquisa",jsonStr);
+
+                JSONArray jsonarray = new JSONArray(jsonStr);
+
+                for(int i=0; i<jsonarray.length(); i++){
+                    JSONObject caronaJSON  = jsonarray.getJSONObject(i);
+
+                    Integer caronaId = caronaJSON.getInt("CaronaID");
+                    Integer usuarioId = caronaJSON.getInt("UsuarioID");
+                    String estadoOrigem = caronaJSON.getString("EstadoOrigem");
+                    String cidadeOrigem = caronaJSON.getString("CidadeOrigem");
+                    String bairroOrigem = caronaJSON.getString("BairroOrigem");
+                    String ruaOrigem = caronaJSON.getString("RuaOrigem");
+                    String estadoDestino = caronaJSON.getString("EstadoDestino");
+                    String cidadeDestino = caronaJSON.getString("CidadeDestino");
+                    String bairroDestino = caronaJSON.getString("BairroDestino");
+                    String ruaDestino = caronaJSON.getString("RuaDestino");
+//                  Integer valor = caronaJSON.getInt("Valor");
+                    String descricaoCarona = caronaJSON.getString("DescricaoCarona");
+                    Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
+                    String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
+                    Integer vagas = caronaJSON.getInt("Vagas");
+                    Integer tipoTrajeto = caronaJSON.getInt("TipoTrajeto");
+                    Integer tipoOferta = caronaJSON.getInt("TipoOferta");
+//                  Integer dataHoraSaidaIda = caronaJSON.getInt("DataHoraSaidaIda");
+//                  Integer dataHoraSaidaVolta = caronaJSON.getInt("DataHoraSaidaVolta");
+                    String diaDaSemana = caronaJSON.getString("DiaDaSemana");
+//                  Integer status = caronaJSON.getInt("Status");
+//                  Integer classificacao = caronaJSON.getInt("Classificacao");
+
+                    Carona carona = new Carona();
+
+                    carona.setCaronaId(caronaId);
+                    carona.setUsuarioID(usuarioId);
+                    carona.setEstadoOrigem(estadoOrigem);
+                    carona.setCidadeOrigem(cidadeOrigem);
+                    carona.setBairroOrigem(bairroOrigem);
+                    carona.setEstadoDestino(estadoDestino);
+                    carona.setCidadeDestino(cidadeDestino);
+                    carona.setBairroDestino(bairroDestino);
+//                  carona.setValor(valor.toString());
+                    carona.setDescricaoCarona(descricaoCarona);
+                    carona.setTipoVeiculo(tipoVeiculo.toString());
+                    carona.setDescricaoVeiculo(descricaoVeiculo);
+                    carona.setVagas(vagas.toString());
+                    carona.setTipoTrajeto(tipoTrajeto.toString());
+                    carona.setTipoOferta(tipoOferta.toString());
+//                  carona.setDataHoraSaidaIda(new Date(dataHoraSaidaIda));
+//                  carona.setDataHoraSaidaVolta(new Date(dataHoraSaidaVolta));
+                    carona.setDiaDaSemana(diaDaSemana);
+//                  carona.setStatus(status.toString());
+//                  carona.setClassificacao(classificacao);
+                    carona.setRuaOrigem(ruaOrigem);
+                    carona.setRuaDestino(ruaDestino);
+
+                    mCaronasFiltro.add(carona);
+                }
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            return mCaronasFiltro;
+        }
+
+        @Override
+        protected void onPostExecute(List<Carona> caronas) {
+            super.onPostExecute(caronas);
+            mListViewCarona.setAdapter(new CaronaAdapter(PesquisarCaronaActivity.this, mCaronasFiltro));
+            Log.i("doneFiltro","doneFiltro");
 
         }
     }

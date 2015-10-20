@@ -13,9 +13,10 @@ import android.widget.EditText;
 
 public class FilterCaronaActivity extends AppCompatActivity implements View.OnClickListener{
 
-    EditText mTxtEnderecoOrigem;
-    EditText mTxtEnderecoDestino;
+
     Button mBotaoPesquisar;
+    EditText bairroOridem;
+    EditText  bairroDestino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +24,11 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_filter_carona);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mTxtEnderecoOrigem = (EditText)findViewById(R.id.edtOrigem);
-        mTxtEnderecoDestino = (EditText)findViewById(R.id.edtDestino);
+        bairroOridem = (EditText) findViewById(R.id.bairroOridem);
+        bairroDestino = (EditText) findViewById(R.id.bairroDestino);
         mBotaoPesquisar = (Button)findViewById(R.id.btnPesquisarCarona);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mBotaoPesquisar.setOnClickListener(this);
@@ -44,9 +37,10 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         Carona carona = new Carona();
-        carona.RuaOrigem = mTxtEnderecoOrigem.getText().toString();
-        carona.RuaDestino = mTxtEnderecoDestino.getText().toString();
+        carona.setBairroOrigem(bairroOridem.getText().toString());
+        carona.setBairroDestino(bairroDestino.getText().toString());
         Intent it = new Intent(this, PesquisarCaronaActivity.class);
+        it.putExtra("filtro","true");
         it.putExtra("carona_filtrada", carona);
         startActivity(it);
     }
