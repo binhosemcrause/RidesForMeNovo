@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.common.data.DataHolder;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -63,9 +64,6 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
     public String RuaDestino;
     public String numeroOrigem;
     public String numeroDestino;
-
-
-
 
     LatLng ltZoom;
     ArrayList<LatLng> markerPoints;
@@ -139,13 +137,8 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
                 carona.Status = "1";
                 carona.DiaDaSemana = "2222222";
                 carona.DataHoraSaidaVolta = new Date();
-                Date date = null;
-                try {
-                    date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(dateString);
-                    carona.DataHoraSaidaIda = date;
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                carona.DataHoraSaidaIda = new Date();
+
                 String json = gson.toJson(carona);
                 Boolean b;
                 try {
@@ -192,7 +185,7 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
-                        .url("http://186.212.231.219:8080/rpg/carona/cadastrarCarona")
+                        .url("http://179.181.41.70:8080/rpg/carona/cadastrarCarona")
                         .post(requestBody)
                         .build();
                 try {

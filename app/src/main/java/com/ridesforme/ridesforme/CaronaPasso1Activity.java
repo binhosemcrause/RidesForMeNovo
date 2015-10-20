@@ -46,10 +46,6 @@ public class CaronaPasso1Activity extends AppCompatActivity {
             txtBairroOrigem.setText(params.getString("bairro"));
         }
 
-
-
-
-
         Button proxPasso = (Button) findViewById(R.id.button4);
         proxPasso.setOnClickListener(new View.OnClickListener() {
             @Override
