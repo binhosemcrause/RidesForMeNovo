@@ -17,6 +17,9 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +30,8 @@ public class CadastroActivity extends AppCompatActivity {
     EditText txtEmail;
     EditText txtSenha;
     EditText txtSenha2;
+    EditText txtNomeSobrenome;
+    EditText txtCodIdentificacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,29 +42,40 @@ public class CadastroActivity extends AppCompatActivity {
         txtEmail = (EditText) findViewById(R.id.edtCadEmail);
         txtSenha = (EditText) findViewById(R.id.edtCadSenha);
         txtSenha2 = (EditText) findViewById(R.id.edtCadConfirmSenha);
+        txtNomeSobrenome = (EditText) findViewById(R.id.adtNomeSobrenome);
+        txtCodIdentificacao = (EditText)findViewById(R.id.edtCadMatricula);
 
         final Button btnCad = (Button) findViewById(R.id.btnCad);
 
         btnCad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean b;
+                String b;
                 String login = txtLogin.getText().toString();
                 String senha = txtSenha.getText().toString();
                 String email = txtEmail.getText().toString();
+                String nomeSobrenome = txtNomeSobrenome.getText().toString();
+                String matricula = txtCodIdentificacao.getText().toString();
+
                 if (isDadosValidos()) {
                     try {
-                        new MaterialDialog.Builder(CadastroActivity.this)
-                                .title(R.string.cadastro_progress_dialog)
-                                .content(R.string.wait)
-                                .progress(true, 0)
-                                .show();
-                        b = new CadastroControllerTask().execute(login, email, senha).get();
-                        if (b == true) {
+                        b = new CadastroControllerTask().execute(login, email, senha,nomeSobrenome,matricula).get();
+                        //b=1 - Email e Senha existe na Tabela Cliente e não Existe em Usuários
+                        if (b.equals("1")) {
+                           new MaterialDialog.Builder(CadastroActivity.this)
+                                    .title(R.string.cadastro_progress_dialog)
+                                    .content(R.string.wait)
+                                    .progress(true, 10)
+                                    .show();
                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(intent);
+                        }
+                        else if(b.equals("2")){
+                            Toast.makeText(getApplication(),"Usuario ou Email já cadastrado",Toast.LENGTH_SHORT).show();
+
                         } else {
-                            Toast.makeText(getApplication(), "Usuario ou Email já cadastrados", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), "Email ou Usuário invalidos", Toast.LENGTH_SHORT).show();
+
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -75,10 +91,10 @@ public class CadastroActivity extends AppCompatActivity {
 
 
 
-    public static class CadastroControllerTask extends AsyncTask<String, Integer, Boolean> {
+    public static class CadastroControllerTask extends AsyncTask<String, Integer, String> {
 
         @Override
-        protected Boolean doInBackground(String... params) {
+        protected String doInBackground(String... params) {
             try {
                 OkHttpClient client = new OkHttpClient();
                 RequestBody requestBody = new MultipartBuilder()
@@ -86,10 +102,12 @@ public class CadastroActivity extends AppCompatActivity {
                         .addFormDataPart("login",params[0])
                         .addFormDataPart("email",params[1])
                         .addFormDataPart("senha",params[2])
+                        .addFormDataPart("nome",params[3])
+                        .addFormDataPart("matricula",params[4])
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
-                        .url("http://179.182.98.29:8080/rpg/usuario/cadastrarUsuario")
+                        .url("http://179.181.41.70:8080/rpg/usuario/cadastrarUsuario")
                         .post(requestBody)
                         .build();
                 try {
@@ -97,23 +115,27 @@ public class CadastroActivity extends AppCompatActivity {
                     String responseString = response.body().string();
                     response.body().close();
                     Log.v("a", responseString);
-                    boolean aaa = Boolean.parseBoolean(responseString);
-                    return  aaa;
+
+
+                    JSONObject jObject = new JSONObject(responseString);
+                    String projectname = jObject.getString("result");
+
+                    Log.i("Retorno",projectname);
+
+                    return  projectname;
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return false;
+                    return null;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                return false;
+                return null;
             }
         }
     }
 
     private boolean isDadosValidos(){
         boolean validado = true;
-
-
 
         if (verificarEspacoBranco(txtLogin.getText().toString())) {
             txtLogin.setError("Não pode conter espaços em branco.");
@@ -152,14 +174,21 @@ public class CadastroActivity extends AppCompatActivity {
             txtSenha.requestFocus();
             validado = false;
         }
-
-
+        if(txtNomeSobrenome.getText().toString().equals("")){
+            txtNomeSobrenome.setError(getString(R.string.alert_campo_obrigatorio));
+            txtNomeSobrenome.requestFocus();
+            validado = false;
+        }
+        if(txtCodIdentificacao.getText().toString().equals("")){
+            txtCodIdentificacao.setError(getString(R.string.alert_campo_obrigatorio));
+            txtCodIdentificacao.requestFocus();
+            validado = false;
+        }
         if (!txtSenha.getText().toString().equals(txtSenha2.getText().toString())) {
             txtSenha.setError("Senhas não são iguais");
             txtSenha.requestFocus();
             validado = false;
         }
-
         return validado;
     }
 

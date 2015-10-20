@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ridesforme.ridesforme.R;
@@ -81,6 +82,14 @@ public class PerfilFragment extends Fragment {
         String name = user.get(UserSessionManager.KEY_NAME);
         TextView txtUserName = (TextView)v.findViewById(R.id.perfil_username);
         txtUserName.setText(Html.fromHtml("Usuário: <b>" + name + "</b>"));
+
+        Button btnDeslogar = (Button)v.findViewById(R.id.btnPerfilDeslogar);
+        btnDeslogar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                session.logoutUser();
+            }
+        });
 
         return v;
     }

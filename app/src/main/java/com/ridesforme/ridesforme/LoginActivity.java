@@ -20,6 +20,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,7 +71,8 @@ public class LoginActivity extends Activity {
         txtCadastrar.setText(Html.fromHtml("<p><u>Cadastre-se agora!</u></p>"));
         session = new UserSessionManager(getApplication());
 
-        btnLogar.setOnClickListener(new View.OnClickListener() {
+        //Sem Webservice
+        /*btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDialog = new MaterialDialog.Builder(LoginActivity.this)
@@ -88,21 +90,15 @@ public class LoginActivity extends Activity {
                 finish();
             }
         });
-
+*/
 
 
 
 
         //Com WebService
-        /*btnLogar.setOnClickListener(new Button.OnClickListener() {
+        btnLogar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-              new MaterialDialog.Builder(LoginActivity.this)
-                        .title(R.string.login_progress_dialog)
-                        .content(R.string.wait)
-                        .progress(true, 0)
-                        .show();
-
                 if (validarDados()) {
                     String username = txtLogin.getText().toString();
                     String password = txtPassword.getText().toString();
@@ -110,6 +106,12 @@ public class LoginActivity extends Activity {
                     try {
                         b = new LoginControllerTask().execute(username, password).get();
                         if (b == true) {
+                            new MaterialDialog.Builder(LoginActivity.this)
+                                    .title(R.string.login_progress_dialog)
+                                    .content(R.string.wait)
+                                    .progress(true, 10)
+                                    .show();
+
                             session.createUserLoginSession(username, password);
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -127,7 +129,7 @@ public class LoginActivity extends Activity {
 
                 }
             }
-        });*/
+        });
 
         txtCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +157,7 @@ public class LoginActivity extends Activity {
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
-                        .url("http://179.179.104.46:8080/rpg/usuario/login")
+                        .url("http://179.181.41.70:8080/rpg/usuario/login")
                         .post(requestBody)
                         .build();
 

@@ -249,6 +249,8 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
         endereco.setText(addresses.get(0).getThoroughfare().toString() + "," + addresses.get(0).getFeatureName());
+        String bairro = addresses.get(0).getSubLocality().toString();
+        Log.i("Bairro",bairro);
         ((HomeActivity) getActivity()).pEndereco = addresses.get(0).getThoroughfare();
         ((HomeActivity) getActivity()).pNumero =  addresses.get(0).getFeatureName();
         ((HomeActivity) getActivity()).pCidade =  addresses.get(0).getLocality();
@@ -295,14 +297,10 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
-        /*try {
+        try {
             Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
             endereco.setText(addresses.get(0).getAddressLine(0).toString());
-            pEndereco = addresses.get(0).getThoroughfare().toString();
-            pNumero = addresses.get(0).getFeatureName();
-            pCidade = addresses.get(0).getLocality();
-            Log.i("endereco", addresses.get(0).getAddressLine(0).toString());
         } catch (Exception e) {
             try {
                 mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
@@ -320,6 +318,6 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
 
 
             e.printStackTrace();
-        }*/
+        }
     }
 }

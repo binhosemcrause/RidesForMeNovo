@@ -88,7 +88,7 @@
         android:inputType="textPersonName"
         android:hint="Nome e Sobrenome"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/adtNomeSobrenome"
         android:layout_above="@+id/edtCadUser"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

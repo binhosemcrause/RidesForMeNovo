@@ -38,7 +38,7 @@
     <string name="sugestao">Sugestão</string>
     <string name="problema">Problema</string>
     <string name="nota_app">Nota do RidesForMe</string>
-    <string name="alert_campo_obrigatorio">Campo Obrigatório</string>
+    <string name="alert_campo_obrigatorio">Campos Obrigatório</string>
     <string name="alert_radioButtonEmpty">Selecione alguma opção para o Tipo do Contato.</string>
     <string name="alert_warning">Por favor selecione uma das opções para o Tipo de Contato.</string>
     <string name="email_success">Caro Usuário, os seus dados foram computados com sucesso, um e-mail automático foi enviado, por favor verifique a sua caixa de entrada.</string>

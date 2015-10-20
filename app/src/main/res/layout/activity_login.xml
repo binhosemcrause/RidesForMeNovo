@@ -19,7 +19,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Email"/>
+        android:hint="Usuário"/>
 
     <EditText
         android:layout_width="wrap_content"

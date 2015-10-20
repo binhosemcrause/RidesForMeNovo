@@ -7,7 +7,14 @@ public class EnderecoCompletoUtil {
     private String endereco;
     private String numero;
     private String cidade;
+    private String bairro;
 
+    public String getBairro() {
+        return bairro;
+    }
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
     public String getEndereco() {
         return endereco;
     }
