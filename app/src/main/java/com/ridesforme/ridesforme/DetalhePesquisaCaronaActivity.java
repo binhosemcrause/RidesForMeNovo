@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.ridesforme.ridesforme.basicas.Carona;
 
-import org.w3c.dom.Text;
-
 public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
 
     TextView mTxtEnderecoOrigem;
@@ -44,14 +42,12 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
         Carona carona = (Carona)it.getSerializableExtra("carona_selecionada");
 
         if(carona != null){
-          /* mTxtEnderecoOrigem.setText(carona.endereco);
-           mTxtCidadeOrigem.setText(carona.cidade);
-           mTxtBairroOrigem.setText(carona.bairro);
-           mTxtNumeroOrigem.setText(carona.numero);
-           mTxtEnderecoDestino.setText(carona.enderecoDestino);
-           mTxtCidadeDestino.setText(carona.cidadeDestino);
-           mTxtBairroDestino.setText(carona.bairroDestino);*/
-//           mTxtNumeroDestino.setText(carona.numeroDestino);
+            mTxtEnderecoOrigem.setText(carona.getRuaOrigem());
+            mTxtCidadeOrigem.setText(carona.getCidadeOrigem());
+            mTxtBairroOrigem.setText(carona.getBairroOrigem());
+            mTxtEnderecoDestino.setText(carona.getRuaDestino());
+            mTxtCidadeDestino.setText(carona.getCidadeDestino());
+            mTxtBairroDestino.setText(carona.getBairroDestino());
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

@@ -47,16 +47,14 @@
         android:layout_alignParentEnd="true"
         android:background="#FFFFFF"/>
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="RidesForMe"
+        android:src="@drawable/logo"
+        android:id="@+id/loginLogoImageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
-        android:id="@+id/textView2"
-        android:textStyle="bold|italic"/>
+        android:layout_marginTop="37dp" />
 
     <TextView
         android:layout_width="wrap_content"

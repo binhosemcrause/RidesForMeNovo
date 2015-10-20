@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -14,141 +16,77 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/maphome"/>
+        android:id="@+id/caronaDetalhesImageView"
+        android:src="@drawable/ic_perfil"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/field_origem_carona"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/imageView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="@string/field_origem_carona"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\@null"
-        android:id="@+id/txtEnderecoOrigem"
-        android:layout_alignTop="@+id/textView6"
-        android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@+id/textView6" />
+        android:id="@+id/txtEnderecoOrigem"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/field_cidade_carona"
-        android:id="@+id/textView9"
-        android:layout_marginTop="34dp"
-        android:layout_below="@+id/textView6"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="@string/field_cidade_carona"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\@null"
-        android:id="@+id/txtCidadeOrigem"
-        android:layout_alignTop="@+id/textView9"
-        android:layout_alignRight="@+id/textView6"
-        android:layout_alignEnd="@+id/textView6" />
+        android:id="@+id/txtCidadeOrigem"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/field_bairro_carona"
-        android:id="@+id/textView11"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/textView9"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="@string/field_bairro_carona"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\@null"
-        android:id="@+id/txtBairroOrigem"
-        android:layout_alignBottom="@+id/textView11"
-        android:layout_toRightOf="@+id/textView6"
-        android:layout_toEndOf="@+id/textView6" />
+        android:id="@+id/txtBairroOrigem"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/field_numero_carona"
-        android:id="@+id/textView13"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="@string/field_numero_carona"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\@null"
-        android:id="@+id/txtNumeroOrigem"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/txtBairroOrigem"
-        android:layout_toEndOf="@+id/txtBairroOrigem" />
+        android:id="@+id/txtNumeroOrigem"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/field_endereco_destino_carona"
-        android:id="@+id/textView8"
-        android:layout_below="@+id/textView13"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="27dp" />
+        android:text="@string/field_endereco_destino_carona" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\@null"
-        android:id="@+id/txtEnderecoDestino"
-        android:layout_alignTop="@+id/textView8"
-        android:layout_toRightOf="@+id/txtNumeroOrigem"
-        android:layout_toEndOf="@+id/txtNumeroOrigem"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp" />
+        android:id="@+id/txtEnderecoDestino"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/field_cidadeDestino_carona"
-        android:id="@+id/textView10"
-        android:layout_below="@+id/textView8"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="23dp" />
+        android:text="@string/field_cidadeDestino_carona"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\@null"
-        android:id="@+id/txtCidadeDestino"
-        android:layout_alignTop="@+id/textView10"
-        android:layout_toRightOf="@+id/txtNumeroOrigem"
-        android:layout_toEndOf="@+id/txtNumeroOrigem" />
+        android:id="@+id/txtCidadeDestino"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/field_bairroDestino_carona"
-        android:id="@+id/txtBairroDestinoModel"
-        android:layout_below="@+id/textView10"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="24dp" />
+        android:id="@+id/txtBairroDestinoModel"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\@null"
-        android:id="@+id/txtBairroDestino"
-        android:layout_alignTop="@+id/txtBairroDestinoModel"
-        android:layout_toRightOf="@+id/textView13"
-        android:layout_toEndOf="@+id/textView13" />
-</RelativeLayout>
+        android:id="@+id/txtBairroDestino"/>
+</LinearLayout>

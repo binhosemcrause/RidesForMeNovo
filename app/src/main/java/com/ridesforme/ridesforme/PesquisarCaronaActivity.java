@@ -31,6 +31,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
     private static final int REQUEST_CODE = 1;
     private RepositorioCarona caronaDAO = RepositorioCarona.getSingleton();
     private List<Carona> mCaronas;
+    private ListarCaronasTask mTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +49,8 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         mBotaoFiltrarCarona = (Button) findViewById(R.id.btnFiltrarCarona);
         mBotaoFiltrarCarona.setOnClickListener(this);
         mCaronas = new ArrayList<>();
-
-        ListarCaronasTask task = new ListarCaronasTask();
-        task.execute();
-
-        if(task.getStatus() == AsyncTask.Status.FINISHED){
-            CaronaAdapter adapter = new CaronaAdapter(getApplicationContext(), mCaronas);
-            mListViewCarona.setAdapter(adapter);
-        }
+        mTask = new ListarCaronasTask();
+        mTask.execute();
         mListViewCarona.setOnItemClickListener(this);
 
     }
@@ -81,11 +76,9 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
             String url;
             OkHttpClient client = new OkHttpClient();
             Request request;
-            Carona carona = new Carona();
 
             try {
-                url = "http://186.212.134.22:8080/rpg/carona/getCarona/2";
-
+                url = "http://179.181.41.70:8080/rpg/carona/getAllCarona";
                 request = new Request.Builder()
                         .url(url)
                         .build();
@@ -95,12 +88,54 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
 
                 JSONArray jsonarray = new JSONArray(jsonStr);
 
-
                 for(int i=0; i<jsonarray.length(); i++){
                     JSONObject caronaJSON  = jsonarray.getJSONObject(i);
-                    String ruaOrigem = caronaJSON.getString("RuaOrigem");
-                    String ruaDestino = caronaJSON.getString("RuaDestino");
 
+                    Integer caronaId = caronaJSON.getInt("CaronaID");
+                    Integer usuarioId = caronaJSON.getInt("UsuarioID");
+                    String estadoOrigem = caronaJSON.getString("EstadoOrigem");
+                    String cidadeOrigem = caronaJSON.getString("CidadeOrigem");
+                    String bairroOrigem = caronaJSON.getString("BairroOrigem");
+                    String ruaOrigem = caronaJSON.getString("RuaOrigem");
+                    String estadoDestino = caronaJSON.getString("EstadoDestino");
+                    String cidadeDestino = caronaJSON.getString("CidadeDestino");
+                    String bairroDestino = caronaJSON.getString("BairroDestino");
+                    String ruaDestino = caronaJSON.getString("RuaDestino");
+//                  Integer valor = caronaJSON.getInt("Valor");
+                    String descricaoCarona = caronaJSON.getString("DescricaoCarona");
+                    Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
+                    String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
+                    Integer vagas = caronaJSON.getInt("Vagas");
+                    Integer tipoTrajeto = caronaJSON.getInt("TipoTrajeto");
+                    Integer tipoOferta = caronaJSON.getInt("TipoOferta");
+//                  Integer dataHoraSaidaIda = caronaJSON.getInt("DataHoraSaidaIda");
+//                  Integer dataHoraSaidaVolta = caronaJSON.getInt("DataHoraSaidaVolta");
+                    String diaDaSemana = caronaJSON.getString("DiaDaSemana");
+//                  Integer status = caronaJSON.getInt("Status");
+//                  Integer classificacao = caronaJSON.getInt("Classificacao");
+
+                    Carona carona = new Carona();
+
+                    carona.setCaronaId(caronaId);
+                    carona.setUsuarioID(usuarioId);
+                    carona.setEstadoOrigem(estadoOrigem);
+                    carona.setCidadeOrigem(cidadeOrigem);
+                    carona.setBairroOrigem(bairroOrigem);
+                    carona.setEstadoDestino(estadoDestino);
+                    carona.setCidadeDestino(cidadeDestino);
+                    carona.setBairroDestino(bairroDestino);
+//                  carona.setValor(valor.toString());
+                    carona.setDescricaoCarona(descricaoCarona);
+                    carona.setTipoVeiculo(tipoVeiculo.toString());
+                    carona.setDescricaoVeiculo(descricaoVeiculo);
+                    carona.setVagas(vagas.toString());
+                    carona.setTipoTrajeto(tipoTrajeto.toString());
+                    carona.setTipoOferta(tipoOferta.toString());
+//                  carona.setDataHoraSaidaIda(new Date(dataHoraSaidaIda));
+//                  carona.setDataHoraSaidaVolta(new Date(dataHoraSaidaVolta));
+                    carona.setDiaDaSemana(diaDaSemana);
+//                  carona.setStatus(status.toString());
+//                  carona.setClassificacao(classificacao);
                     carona.setRuaOrigem(ruaOrigem);
                     carona.setRuaDestino(ruaDestino);
 

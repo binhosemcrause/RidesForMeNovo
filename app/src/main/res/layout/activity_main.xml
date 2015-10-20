@@ -13,12 +13,11 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/progressBar" />
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="RidesForMe"
-        android:id="@+id/txtTitulo"
+        android:src="@drawable/logo"
+        android:id="@+id/mainLogoImageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp" />
@@ -29,6 +28,6 @@
         android:id="@+id/imageView"
         android:layout_marginTop="60dp"
         android:background="@drawable/maphome"
-        android:layout_below="@+id/txtTitulo"
+        android:layout_below="@+id/mainLogoImageView"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
