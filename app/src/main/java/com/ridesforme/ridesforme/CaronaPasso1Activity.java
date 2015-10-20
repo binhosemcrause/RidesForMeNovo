@@ -43,7 +43,7 @@ public class CaronaPasso1Activity extends AppCompatActivity {
             txtEnderecoOrigem.setText(params.getString("endereco"));
             txtNumeroOrigem.setText(params.getString("numero"));
             txtCidadeOrigem.setText(params.getString("cidade"));
-            //  txtBairroOrigem.setText(params.getString("bairro"));
+            txtBairroOrigem.setText(params.getString("bairro"));
         }
 
 

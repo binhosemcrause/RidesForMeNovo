@@ -249,14 +249,18 @@ public class MapHomeFragment extends Fragment implements OnMapReadyCallback, Con
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
         endereco.setText(addresses.get(0).getThoroughfare().toString() + "," + addresses.get(0).getFeatureName());
+
         String bairro = addresses.get(0).getSubLocality().toString();
         Log.i("Bairro",bairro);
+
         ((HomeActivity) getActivity()).pEndereco = addresses.get(0).getThoroughfare();
         ((HomeActivity) getActivity()).pNumero =  addresses.get(0).getFeatureName();
         ((HomeActivity) getActivity()).pCidade =  addresses.get(0).getLocality();
+        ((HomeActivity) getActivity()).pBairro = addresses.get(0).getSubLocality();
         bundleAll.putString("endereco",((HomeActivity) getActivity()).pEndereco);
         bundleAll.putString("cidade",((HomeActivity) getActivity()).pCidade);
         bundleAll.putString("numero", ((HomeActivity) getActivity()).pNumero);
+        bundleAll.putString("bairro", ((HomeActivity) getActivity()).pBairro);
 
         //enderecoUtil.setEndereco(pEndereco);
         //enderecoUtil.setCidade(pCidade);

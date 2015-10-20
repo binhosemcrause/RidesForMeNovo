@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
     public String pEndereco;
     public String pNumero;
     public String pCidade;
+    public String pBairro;
 
     @Override
     public void onBackPressed() {
@@ -130,6 +131,7 @@ public class HomeActivity extends AppCompatActivity {
                         it.putExtra("endereco", pEndereco);
                         it.putExtra("numero", pNumero);
                         it.putExtra("cidade", pCidade);
+                        it.putExtra("bairro",pBairro);
                         startActivity(it);
                     }else if(position == 2){
                         f = new PerfilFragment();
