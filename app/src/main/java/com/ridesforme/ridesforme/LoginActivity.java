@@ -20,6 +20,10 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -102,17 +106,32 @@ public class LoginActivity extends Activity {
                 if (validarDados()) {
                     String username = txtLogin.getText().toString();
                     String password = txtPassword.getText().toString();
-                    boolean b;
+                    String b;
+                    String result="";
+                    String idUser ="";
                     try {
                         b = new LoginControllerTask().execute(username, password).get();
-                        if (b == true) {
+                        try {
+                            JSONObject jObject = new JSONObject(b);
+                            result = jObject.getString("result");
+                            JSONArray obj2  = jObject.getJSONArray("user");
+                            JSONObject obj = obj2.getJSONObject(0);
+                            idUser = obj.getString("UsuarioId");
+
+                            Log.i("id",idUser);
+                            Log.i("result",result);
+
+                        } catch (JSONException e) {
+
+                        }
+                        if (result.equals("true")) {
                             new MaterialDialog.Builder(LoginActivity.this)
                                     .title(R.string.login_progress_dialog)
                                     .content(R.string.wait)
                                     .progress(true, 10)
                                     .show();
 
-                            session.createUserLoginSession(username, password);
+                            session.createUserLoginSession(username, password,idUser);
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
@@ -144,10 +163,10 @@ public class LoginActivity extends Activity {
     /**
      * Created by Felipe on 27/08/2015.
      */
-    public static class LoginControllerTask extends AsyncTask<String, Integer, Boolean> {
+    public static class LoginControllerTask extends AsyncTask<String, Integer, String> {
 
         @Override
-        protected Boolean doInBackground(String... params) {
+        protected String doInBackground(String... params) {
             try {
                 OkHttpClient client = new OkHttpClient();
                 RequestBody requestBody = new MultipartBuilder()
@@ -165,15 +184,15 @@ public class LoginActivity extends Activity {
                     Response response = client.newCall(request).execute();
                     String responseString = response.body().string();
                     response.body().close();
-                    Log.v("a", responseString);
-                    return Boolean.parseBoolean(responseString);
+
+                    return responseString;
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return false;
+                    return null;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                return false;
+                return null;
             }
         }
     }

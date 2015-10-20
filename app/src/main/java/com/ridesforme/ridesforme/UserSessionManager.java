@@ -18,6 +18,7 @@ public class UserSessionManager {
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";
     public static final String KEY_NAME = "name";
     public static final String KEY_SENHA = "senha";
+    public static final String KEY_IDUSER = "iduser";
     public static final String KEY_LAT = "lat";
     public static final String KEY_LNG = "lng";
 
@@ -28,10 +29,11 @@ public class UserSessionManager {
         editor = pref.edit();
     }
 
-    public void createUserLoginSession(String name, String senha) {
+    public void createUserLoginSession(String name, String senha, String idUser) {
         editor.putBoolean(IS_USER_LOGIN, true);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_SENHA, senha);
+        editor.putString(KEY_IDUSER, idUser);
         editor.commit();
     }
 
@@ -64,6 +66,7 @@ public class UserSessionManager {
         HashMap<String, String> user = new HashMap<String, String>();
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
         user.put(KEY_SENHA, pref.getString(KEY_SENHA, null));
+        user.put(KEY_IDUSER, pref.getString(KEY_IDUSER, null));
         return user;
     }
 
