@@ -77,7 +77,7 @@ public class LoginActivity extends Activity {
         txtCadastrar.setText(Html.fromHtml("<p><u>Cadastre-se agora!</u></p>"));
         session = new UserSessionManager(getApplication());
 
-        //Sem Webservice
+        /*Sem Webservice
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,13 +95,13 @@ public class LoginActivity extends Activity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
 
 
 
 
 
-        /*Com WebService
+        //Com WebService
         btnLogar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +124,7 @@ public class LoginActivity extends Activity {
                             Log.i("result",result);
 
                         } catch (JSONException e) {
-
+                            Log.i("b",b);
                         }
                         if (result.equals("true")) {
                             new MaterialDialog.Builder(LoginActivity.this)
@@ -139,8 +139,7 @@ public class LoginActivity extends Activity {
                             startActivity(intent);
                             finish();
                         } else {
-                            //Toast.makeText(getApplication(), "login ou senha inválidos!", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getApplication(), result.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), "login ou senha inválidos!", Toast.LENGTH_SHORT).show();
 
                         }
                     } catch (InterruptedException e) {
@@ -152,7 +151,8 @@ public class LoginActivity extends Activity {
 
                 }
             }
-        });*/
+        });
+
 
         txtCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +181,7 @@ public class LoginActivity extends Activity {
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
-                        .url(urls.AllCarona)
+                        .url(urls.login)
                         .post(requestBody)
                         .build();
 
