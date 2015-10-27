@@ -26,12 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Felipe-->
+        <!-- Felipe
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAgpnCXiiDc4R6mB4RoVTnItSrilfT1hKo" />
 
-        <!-- Felipe note
+         Felipe note
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB998nusPEOfUw3_1alBYD-G7hW7sARrag" /> -->
@@ -44,10 +44,10 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" /> -->
 
-        <!-- Robson
+        <!-- Robson -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA88MPBXIpK1cgGLoAnh475JYwHm5pC_S8" />-->
+            android:value="AIzaSyA88MPBXIpK1cgGLoAnh475JYwHm5pC_S8" />
 
         <meta-data
             android:name="com.google.android.gms.version"

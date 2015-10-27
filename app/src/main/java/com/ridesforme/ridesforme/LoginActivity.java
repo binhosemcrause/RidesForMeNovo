@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.ridesforme.ridesforme.util.Urls;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -35,6 +36,7 @@ public class LoginActivity extends Activity {
     EditText txtPassword;
     Boolean exit = false;
     MaterialDialog mDialog;
+
 
 
     @Override
@@ -76,7 +78,7 @@ public class LoginActivity extends Activity {
         session = new UserSessionManager(getApplication());
 
         //Sem Webservice
-        /*btnLogar.setOnClickListener(new View.OnClickListener() {
+        btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDialog = new MaterialDialog.Builder(LoginActivity.this)
@@ -87,19 +89,19 @@ public class LoginActivity extends Activity {
 
                 String username = txtLogin.getText().toString();
                 String password = txtPassword.getText().toString();
-                session.createUserLoginSession(username, password);
+                session.createUserLoginSession(username, password, "1");
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
             }
         });
-*/
 
 
 
 
-        //Com WebService
+
+        /*Com WebService
         btnLogar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +139,9 @@ public class LoginActivity extends Activity {
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(getApplication(), "login ou senha inválidos!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplication(), "login ou senha inválidos!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), result.toString(), Toast.LENGTH_SHORT).show();
+
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -148,7 +152,7 @@ public class LoginActivity extends Activity {
 
                 }
             }
-        });
+        });*/
 
         txtCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,6 +168,7 @@ public class LoginActivity extends Activity {
      * Created by Felipe on 27/08/2015.
      */
     public static class LoginControllerTask extends AsyncTask<String, Integer, String> {
+        Urls urls;
 
         @Override
         protected String doInBackground(String... params) {
@@ -176,7 +181,7 @@ public class LoginActivity extends Activity {
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
-                        .url("http://187.58.111.227:8080/rpg/usuario/login")
+                        .url(urls.AllCarona)
                         .post(requestBody)
                         .build();
 
