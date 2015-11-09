@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.ridesforme.ridesforme.util.Urls;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -107,7 +108,7 @@ public class CadastroActivity extends AppCompatActivity {
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
-                        .url("http://179.181.41.70:8080/rpg/usuario/cadastrarUsuario")
+                        .url(Urls.cadastroUsuario)
                         .post(requestBody)
                         .build();
                 try {

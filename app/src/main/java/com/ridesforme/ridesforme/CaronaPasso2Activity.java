@@ -137,7 +137,7 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
                 carona.Status = "1";
                 carona.DiaDaSemana = "2222222";
                 carona.DataHoraSaidaVolta = new Date();
-                carona.DataHoraSaidaIda = new Date();
+                //carona.DataHoraSaidaIda = new Date();
 
                 String json = gson.toJson(carona);
                 Boolean b;
