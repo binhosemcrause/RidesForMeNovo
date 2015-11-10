@@ -64,6 +64,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         mCaronas = new ArrayList<>();
         mCaronasFiltro = new ArrayList<>();
         mTask = new ListarCaronasTask();
+
         mTaskFiltro = new ListarCaronasFiltroTask();
         mTaskFiltroData = new ListarCaronasFiltroDateTask();
         mTaskFiltroDataHora = new ListarCaronasFiltroDateTimeTask();
@@ -78,7 +79,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
             bairroDestino = carona.getBairroDestino();
           //  horaOrigem = carona.getHoraOrigem();
 
-            if (getIntent() != null && filtro.equals("bairro")) {
+            if (getIntent() != null && filtro.equals("bairroDataHoraGratis")) {
                 mTaskFiltro.execute(bairroOridem,bairroDestino);
                 Log.i("zerou", "zerou");
             } else if (getIntent() != null && filtro.equals("data")) {

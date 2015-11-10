@@ -26,15 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Felipe -->
+        <!-- Felipe
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAgpnCXiiDc4R6mB4RoVTnItSrilfT1hKo" />
+            android:value="AIzaSyAgpnCXiiDc4R6mB4RoVTnItSrilfT1hKo" />-->
 
-        <!-- Felipe note
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB998nusPEOfUw3_1alBYD-G7hW7sARrag" /> -->
+            android:value="AIzaSyB998nusPEOfUw3_1alBYD-G7hW7sARrag" />
 
         <!-- Guilherme
         <meta-data
