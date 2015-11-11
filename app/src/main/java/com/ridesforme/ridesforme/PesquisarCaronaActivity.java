@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.ridesforme.ridesforme.adapter.CaronaAdapter;
@@ -214,7 +213,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                         .addFormDataPart("BairroOrigem", params[0])
                         .addFormDataPart("BairroDestino", params[1])
                         .build();
-                url = Urls.getCaronaFiltro;
+                url = Urls.getCaronaFiltroBairroAll;
                 Request request = new Request.Builder()
                         .url(url)
                         .post(requestBody)

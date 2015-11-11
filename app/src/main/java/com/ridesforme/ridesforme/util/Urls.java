@@ -11,9 +11,12 @@ public class Urls {
     //Metodos webservice
     public static final String AllCarona = webservice+"/rpg/carona/getAllCarona";
     public static final String login = webservice+"/rpg/usuario/login";
-    public static final String getCaronaFiltro = webservice+"/rpg/carona/getCaronaFiltro";
-    public static final String getCaronaFiltroData = webservice+"/rpg/carona/getCaronaFiltroData";
-    public static final String getCaronaFiltroDataHora = webservice+"/rpg/carona/getCaronaFiltroDataHora";
     public static final String cadastroUsuario = webservice+"/rpg/usuario/cadastrarUsuario";
     public static final String cadastrarViagem = webservice+"/rpg/carona/cadastrarViagem";
+
+    //Consultas Caronas com filtros
+    public static final String getCaronaFiltroBairroAll = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroAll";
+
+    public static final String getCaronaFiltroData = webservice+"/rpg/carona/getCaronaFiltroData";
+    public static final String getCaronaFiltroDataHora = webservice+"/rpg/carona/getCaronaFiltroDataHora";
 }
