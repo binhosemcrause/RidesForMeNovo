@@ -11,14 +11,16 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_detalhe_pesquisa_carona"
     tools:context="com.ridesforme.ridesforme.DetalhePesquisaCaronaActivity"
-    android:background="#00BCD4">
+    android:background="#00BCD4"
+    android:weightSum="1">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:background="@drawable/shape"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.05">
 
         <TextView
             android:layout_width="wrap_content"
@@ -176,7 +178,26 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txtNumeroDestino"/>
         </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Vagas disponiveis:"
+            android:textSize="18dp"
+            android:id="@+id/lblVagas"
+            android:textColor="#000" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtVagas"/>
+
+        </LinearLayout>
 
 
     </LinearLayout>

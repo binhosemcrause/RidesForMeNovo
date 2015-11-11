@@ -36,7 +36,9 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
     TextView mTxtCidadeDestino;
     TextView mTxtBairroDestino;
     TextView mTxtNumeroDestino;
+    TextView mTxtVagas;
     Button btnSolicitarCarona;
+    Carona carona;
     Integer idCarona;
 
     @Override
@@ -54,10 +56,11 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
         mTxtCidadeDestino = (TextView)findViewById(R.id.txtCidadeDestino);
         mTxtBairroDestino = (TextView)findViewById(R.id.txtBairroDestino);
         mTxtNumeroDestino = (TextView)findViewById(R.id.txtNumeroDestino);
+        mTxtVagas = (TextView) findViewById(R.id.txtVagas);
         btnSolicitarCarona = (Button)findViewById(R.id.btnSolicitarCarona);
 
         Intent it = getIntent();
-        Carona carona = (Carona)it.getSerializableExtra("carona_selecionada");
+        carona = (Carona)it.getSerializableExtra("carona_selecionada");
 
         if(carona != null){
             mTxtEnderecoOrigem.setText(carona.getRuaOrigem());
@@ -66,6 +69,10 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
             mTxtEnderecoDestino.setText(carona.getRuaDestino());
             mTxtCidadeDestino.setText(carona.getCidadeDestino());
             mTxtBairroDestino.setText(carona.getBairroDestino());
+            mTxtVagas.setText(carona.getVagas());
+            if (Integer.parseInt(carona.getVagas())==0) {
+                btnSolicitarCarona.setEnabled(false);
+            }
             idCarona = carona.getCaronaId();
         }
 
@@ -79,13 +86,15 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
                 Log.i("idUsuario",chaveSalva);
                 Log.i("idCarona", idCarona.toString());
                 Viagem vi = new Viagem();
+
                 vi.setCaronaID(idCarona);
                 vi.setUsuarioID(Integer.parseInt(chaveSalva));
                 vi.setClassificacao(0);
                 Boolean b;
                 String json = gson.toJson(vi);
+                Integer caronaVagas = Integer.parseInt(carona.getVagas())-1;
                 try {
-                    b = new CadastroViagemTask().execute(json).get();
+                    b = new CadastroViagemTask().execute(json,idCarona.toString(),caronaVagas.toString()).get();
                     Log.i("json",json);
                     Toast.makeText(getApplicationContext(),"Sua solicitação de carona foi enviada com sucesso.",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
@@ -112,6 +121,8 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
                 RequestBody requestBody = new MultipartBuilder()
                         .type(MultipartBuilder.FORM)
                         .addFormDataPart("viagem",params[0])
+                        .addFormDataPart("idcarona",params[1])
+                        .addFormDataPart("vagas",params[2])
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
