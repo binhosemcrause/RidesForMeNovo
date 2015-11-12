@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.ridesforme.ridesforme.adapter.CaronaAdapter;
 import com.ridesforme.ridesforme.basicas.Carona;
 import com.ridesforme.ridesforme.repositorios.RepositorioCarona;
+import com.ridesforme.ridesforme.util.DataUtil;
 import com.ridesforme.ridesforme.util.Urls;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -36,10 +37,13 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
     private RepositorioCarona caronaDAO = RepositorioCarona.getSingleton();
     private List<Carona> mCaronas;
     private List<Carona> mCaronasFiltro;
+
     private ListarCaronasTask mTask;
-    private ListarCaronasFiltroTask mTaskFiltro;
-    private ListarCaronasFiltroDateTask mTaskFiltroData;
-    private ListarCaronasFiltroDateTimeTask mTaskFiltroDataHora;
+    private ListarCaronasFiltroBairroTudoTask mTaskFiltro;
+    private ListarCaronasFiltroBairroPagaTask mTaskFiltroBairroPaga;
+    private ListarCaronasFiltroBairroGratisTask mTaskFiltroBairroGratis;
+    private ListarCaronasFiltroBairroDataGratisTask mTaskFiltroBairroDataGratisTask;
+
     private String bairroOridem;
     private String bairroDestino;
     private String dataOrigem;
@@ -49,8 +53,6 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pesquisar_carona);
-
-        //LOGICA MARCOS
 
        /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
@@ -62,35 +64,44 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         mBotaoFiltrarCarona.setOnClickListener(this);
         mCaronas = new ArrayList<>();
         mCaronasFiltro = new ArrayList<>();
-        mTask = new ListarCaronasTask();
 
-        mTaskFiltro = new ListarCaronasFiltroTask();
-        mTaskFiltroData = new ListarCaronasFiltroDateTask();
-        mTaskFiltroDataHora = new ListarCaronasFiltroDateTimeTask();
+        mTask = new ListarCaronasTask();
+        mTaskFiltro = new ListarCaronasFiltroBairroTudoTask();
+        mTaskFiltroBairroPaga = new ListarCaronasFiltroBairroPagaTask();
+        mTaskFiltroBairroGratis = new ListarCaronasFiltroBairroGratisTask();
+        mTaskFiltroBairroDataGratisTask = new ListarCaronasFiltroBairroDataGratisTask();
 
 
         String filtro = getIntent().getStringExtra("filtro");
-        if (filtro!=null) {
+        if (filtro != null) {
             Intent it = getIntent();
-            Carona carona = (Carona)it.getSerializableExtra("carona_filtrada");
-           // dataOrigem = carona.getDataHoraSaidaIda();
+            Carona carona = (Carona) it.getSerializableExtra("carona_filtrada");
+
             bairroOridem = carona.getBairroOrigem();
             bairroDestino = carona.getBairroDestino();
-          //  horaOrigem = carona.getHoraOrigem();
+            //  horaOrigem = carona.getHoraOrigem();
 
-            if (getIntent() != null && filtro.equals("bairroDataHoraGratis")) {
-                mTaskFiltro.execute(bairroOridem,bairroDestino);
-                Log.i("zerou", "zerou");
-            } else if (getIntent() != null && filtro.equals("data")) {
-                mTaskFiltroData.execute(dataOrigem);
-                Log.i("zerou", "zerou");
-            } else if (getIntent() != null && filtro.equals("dataHora")){
-                mTaskFiltroDataHora.execute(dataOrigem,horaOrigem);
-                Log.i("zerou", "zerou");
+            if (getIntent() != null && filtro.equals("bairroTudo")) {
+                mTaskFiltro.execute(bairroOridem, bairroDestino);
             }
-            } else {
-                mTask.execute();
+            else if (getIntent() != null && filtro.equals("bairroPaga")) {
+                mTaskFiltroBairroPaga.execute(bairroOridem, bairroDestino);
             }
+            else if (getIntent() != null && filtro.equals("bairroGratis")) {
+                mTaskFiltroBairroGratis.execute(bairroOridem, bairroDestino);
+            }
+            else if (getIntent() != null && filtro.equals("bairroDataGratis")) {
+                Log.i("data", carona.getDataHoraSaidaIda().toString());
+                dataOrigem = DataUtil.dateToString(carona.getDataHoraSaidaIda());
+
+                //criar task
+                mTaskFiltroBairroDataGratisTask.execute(bairroOridem, bairroDestino, dataOrigem);
+            }
+
+
+        } else {
+            mTask.execute();
+        }
 
 
         mListViewCarona.setOnItemClickListener(this);
@@ -98,14 +109,14 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
     }
 
     @Override
-    public void onClick (View v){
+    public void onClick(View v) {
         Intent intent = new Intent(this, FilterCaronaActivity.class);
         startActivity(intent);
 
     }
 
     @Override
-    public void onItemClick (AdapterView < ? > parent, View view,int position, long id){
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Carona carona = (Carona) parent.getItemAtPosition(position);
         Intent intent = new Intent(this, DetalhePesquisaCaronaActivity.class);
         intent.putExtra("carona_selecionada", carona);
@@ -130,8 +141,8 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
 
                 JSONArray jsonarray = new JSONArray(jsonStr);
 
-                for(int i=0; i<jsonarray.length(); i++){
-                    JSONObject caronaJSON  = jsonarray.getJSONObject(i);
+                for (int i = 0; i < jsonarray.length(); i++) {
+                    JSONObject caronaJSON = jsonarray.getJSONObject(i);
 
                     Integer caronaId = caronaJSON.getInt("CaronaID");
                     Integer usuarioId = caronaJSON.getInt("UsuarioID");
@@ -195,12 +206,12 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         protected void onPostExecute(List<Carona> caronas) {
             super.onPostExecute(caronas);
             mListViewCarona.setAdapter(new CaronaAdapter(PesquisarCaronaActivity.this, mCaronas));
-            Log.i("done","done");
+            Log.i("done", "done");
 
         }
     }
 
-    public class ListarCaronasFiltroTask extends AsyncTask<String, Void, List<Carona>> {
+    public class ListarCaronasFiltroBairroTudoTask extends AsyncTask<String, Void, List<Carona>> {
         @Override
         protected List<Carona> doInBackground(String... params) {
             String url;
@@ -221,12 +232,12 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
 
                 Response response = client.newCall(request).execute();
                 String jsonStr = response.body().string();
-                Log.i("pesquisa",jsonStr);
+                Log.i("pesquisa", jsonStr);
 
                 JSONArray jsonarray = new JSONArray(jsonStr);
 
-                for(int i=0; i<jsonarray.length(); i++){
-                    JSONObject caronaJSON  = jsonarray.getJSONObject(i);
+                for (int i = 0; i < jsonarray.length(); i++) {
+                    JSONObject caronaJSON = jsonarray.getJSONObject(i);
 
                     Integer caronaId = caronaJSON.getInt("CaronaID");
                     Integer usuarioId = caronaJSON.getInt("UsuarioID");
@@ -290,12 +301,12 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         protected void onPostExecute(List<Carona> caronas) {
             super.onPostExecute(caronas);
             mListViewCarona.setAdapter(new CaronaAdapter(PesquisarCaronaActivity.this, mCaronasFiltro));
-            Log.i("doneFiltro","doneFiltro");
+            Log.i("doneFiltro", "doneFiltro");
 
         }
     }
 
-    public class ListarCaronasFiltroDateTask extends AsyncTask<String, Void, List<Carona>> {
+    public class ListarCaronasFiltroBairroPagaTask extends AsyncTask<String, Void, List<Carona>> {
         @Override
         protected List<Carona> doInBackground(String... params) {
             String url;
@@ -305,9 +316,10 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                 OkHttpClient client = new OkHttpClient();
                 RequestBody requestBody = new MultipartBuilder()
                         .type(MultipartBuilder.FORM)
-                        .addFormDataPart("data", params[0])
+                        .addFormDataPart("BairroOrigem", params[0])
+                        .addFormDataPart("BairroDestino", params[1])
                         .build();
-                url = Urls.getCaronaFiltroData;
+                url = Urls.getCaronaFiltroBairroPaga;
                 Request request = new Request.Builder()
                         .url(url)
                         .post(requestBody)
@@ -315,12 +327,12 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
 
                 Response response = client.newCall(request).execute();
                 String jsonStr = response.body().string();
-                Log.i("pesquisa",jsonStr);
+                Log.i("pesquisa", jsonStr);
 
                 JSONArray jsonarray = new JSONArray(jsonStr);
 
-                for(int i=0; i<jsonarray.length(); i++){
-                    JSONObject caronaJSON  = jsonarray.getJSONObject(i);
+                for (int i = 0; i < jsonarray.length(); i++) {
+                    JSONObject caronaJSON = jsonarray.getJSONObject(i);
 
                     Integer caronaId = caronaJSON.getInt("CaronaID");
                     Integer usuarioId = caronaJSON.getInt("UsuarioID");
@@ -384,12 +396,12 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         protected void onPostExecute(List<Carona> caronas) {
             super.onPostExecute(caronas);
             mListViewCarona.setAdapter(new CaronaAdapter(PesquisarCaronaActivity.this, mCaronasFiltro));
-            Log.i("doneFiltro","doneFiltro");
+            Log.i("doneFiltro", "doneFiltro");
 
         }
     }
 
-    public class ListarCaronasFiltroDateTimeTask extends AsyncTask<String, Void, List<Carona>> {
+    public class ListarCaronasFiltroBairroGratisTask extends AsyncTask<String, Void, List<Carona>> {
         @Override
         protected List<Carona> doInBackground(String... params) {
             String url;
@@ -399,10 +411,10 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                 OkHttpClient client = new OkHttpClient();
                 RequestBody requestBody = new MultipartBuilder()
                         .type(MultipartBuilder.FORM)
-                        .addFormDataPart("data", params[0])
-                        .addFormDataPart("hora", params[1])
+                        .addFormDataPart("BairroOrigem", params[0])
+                        .addFormDataPart("BairroDestino", params[1])
                         .build();
-                url = Urls.getCaronaFiltroDataHora;
+                url = Urls.getCaronaFiltroBairroGratis;
                 Request request = new Request.Builder()
                         .url(url)
                         .post(requestBody)
@@ -410,12 +422,12 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
 
                 Response response = client.newCall(request).execute();
                 String jsonStr = response.body().string();
-                Log.i("pesquisa",jsonStr);
+                Log.i("pesquisa", jsonStr);
 
                 JSONArray jsonarray = new JSONArray(jsonStr);
 
-                for(int i=0; i<jsonarray.length(); i++){
-                    JSONObject caronaJSON  = jsonarray.getJSONObject(i);
+                for (int i = 0; i < jsonarray.length(); i++) {
+                    JSONObject caronaJSON = jsonarray.getJSONObject(i);
 
                     Integer caronaId = caronaJSON.getInt("CaronaID");
                     Integer usuarioId = caronaJSON.getInt("UsuarioID");
@@ -479,8 +491,105 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
         protected void onPostExecute(List<Carona> caronas) {
             super.onPostExecute(caronas);
             mListViewCarona.setAdapter(new CaronaAdapter(PesquisarCaronaActivity.this, mCaronasFiltro));
-            Log.i("doneFiltro","doneFiltro");
+            Log.i("doneFiltro", "doneFiltro");
+
+        }
+    }
+
+    public class ListarCaronasFiltroBairroDataGratisTask extends AsyncTask<String, Void, List<Carona>> {
+        @Override
+        protected List<Carona> doInBackground(String... params) {
+            String url;
+
+
+            try {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody requestBody = new MultipartBuilder()
+                        .type(MultipartBuilder.FORM)
+                        .addFormDataPart("BairroOrigem", params[0])
+                        .addFormDataPart("BairroDestino", params[1])
+                        .addFormDataPart("DataOrigem", params[2])
+                        .build();
+                url = Urls.getCaronaFiltroBairroDataGratis;
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(requestBody)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                String jsonStr = response.body().string();
+                Log.i("pesquisa", jsonStr);
+
+                JSONArray jsonarray = new JSONArray(jsonStr);
+
+                for (int i = 0; i < jsonarray.length(); i++) {
+                    JSONObject caronaJSON = jsonarray.getJSONObject(i);
+
+                    Integer caronaId = caronaJSON.getInt("CaronaID");
+                    Integer usuarioId = caronaJSON.getInt("UsuarioID");
+                    String estadoOrigem = caronaJSON.getString("EstadoOrigem");
+                    String cidadeOrigem = caronaJSON.getString("CidadeOrigem");
+                    String bairroOrigem = caronaJSON.getString("BairroOrigem");
+                    String ruaOrigem = caronaJSON.getString("RuaOrigem");
+                    String estadoDestino = caronaJSON.getString("EstadoDestino");
+                    String cidadeDestino = caronaJSON.getString("CidadeDestino");
+                    String bairroDestino = caronaJSON.getString("BairroDestino");
+                    String ruaDestino = caronaJSON.getString("RuaDestino");
+//                  Integer valor = caronaJSON.getInt("Valor");
+                    String descricaoCarona = caronaJSON.getString("DescricaoCarona");
+                    Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
+                    String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
+                    Integer vagas = caronaJSON.getInt("Vagas");
+                    Integer tipoTrajeto = caronaJSON.getInt("TipoTrajeto");
+                    Integer tipoOferta = caronaJSON.getInt("TipoOferta");
+//                  Integer dataHoraSaidaIda = caronaJSON.getInt("DataHoraSaidaIda");
+//                  Integer dataHoraSaidaVolta = caronaJSON.getInt("DataHoraSaidaVolta");
+                    String diaDaSemana = caronaJSON.getString("DiaDaSemana");
+//                  Integer status = caronaJSON.getInt("Status");
+//                  Integer classificacao = caronaJSON.getInt("Classificacao");
+
+                    Carona carona = new Carona();
+
+                    carona.setCaronaId(caronaId);
+                    carona.setUsuarioID(usuarioId);
+                    carona.setEstadoOrigem(estadoOrigem);
+                    carona.setCidadeOrigem(cidadeOrigem);
+                    carona.setBairroOrigem(bairroOrigem);
+                    carona.setEstadoDestino(estadoDestino);
+                    carona.setCidadeDestino(cidadeDestino);
+                    carona.setBairroDestino(bairroDestino);
+//                  carona.setValor(valor.toString());
+                    carona.setDescricaoCarona(descricaoCarona);
+                    carona.setTipoVeiculo(tipoVeiculo.toString());
+                    carona.setDescricaoVeiculo(descricaoVeiculo);
+                    carona.setVagas(vagas.toString());
+                    carona.setTipoTrajeto(tipoTrajeto.toString());
+                    carona.setTipoOferta(tipoOferta.toString());
+//                  carona.setDataHoraSaidaIda(new Date(dataHoraSaidaIda));
+//                  carona.setDataHoraSaidaVolta(new Date(dataHoraSaidaVolta));
+                    carona.setDiaDaSemana(diaDaSemana);
+//                  carona.setStatus(status.toString());
+//                  carona.setClassificacao(classificacao);
+                    carona.setRuaOrigem(ruaOrigem);
+                    carona.setRuaDestino(ruaDestino);
+
+                    mCaronasFiltro.add(carona);
+                }
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            return mCaronasFiltro;
+        }
+
+        @Override
+        protected void onPostExecute(List<Carona> caronas) {
+            super.onPostExecute(caronas);
+            mListViewCarona.setAdapter(new CaronaAdapter(PesquisarCaronaActivity.this, mCaronasFiltro));
+            Log.i("doneFiltro", "doneFiltro");
 
         }
     }
 }
+

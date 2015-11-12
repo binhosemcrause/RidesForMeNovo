@@ -16,6 +16,14 @@ public class Urls {
 
     //Consultas Caronas com filtros
     public static final String getCaronaFiltroBairroAll = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroAll";
+    public static final String getCaronaFiltroBairroPaga = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroPaga";
+    public static final String getCaronaFiltroBairroGratis = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroGratis";
+    public static final String getCaronaFiltroBairroDataGratis = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroDataGratis";
+
+
+
+
+
 
     public static final String getCaronaFiltroData = webservice+"/rpg/carona/getCaronaFiltroData";
     public static final String getCaronaFiltroDataHora = webservice+"/rpg/carona/getCaronaFiltroDataHora";

@@ -2,8 +2,8 @@
     <string name="app_name">RidesForMe</string>
     <string name="action_settings">Settings</string>
     <string name="title_filter_carona">Rides4Me - Filtrar Carona</string>
-    <string name="field_origem_filter_carona">Bairro Origem</string>
-    <string name="field_destino_filter_carona">Bairro Destino</string>
+    <string name="field_origem_filter_carona">Bairro Origem *</string>
+    <string name="field_destino_filter_carona">Bairro Destino *</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_home">Home</string>
 
