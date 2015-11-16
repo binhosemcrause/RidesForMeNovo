@@ -1,6 +1,8 @@
 package com.ridesforme.ridesforme;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -28,7 +31,6 @@ import java.util.regex.Pattern;
 
 public class FilterCaronaActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     Button mBotaoPesquisar;
     EditText bairroOrigem;
     EditText bairroDestino;
@@ -39,6 +41,7 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
     RadioButton todasAsCaronas;
     RadioGroup radioGroup;
     View radioButton;
+    static final int DATE_DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +61,18 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
         todasAsCaronas = (RadioButton) findViewById(R.id.rdbAll);
 
 
+        dataOrigem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mBotaoPesquisar.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -192,5 +203,29 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
         boolean found = matcher.find();
         return found;
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Calendar calendario = Calendar.getInstance();
+        int ano = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+        switch (id) {
+            case DATE_DIALOG_ID:
+                return new DatePickerDialog(this, mDateSetListener, ano, mes, dia);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            String data = String.valueOf(dayOfMonth) + " /" + String.valueOf(monthOfYear + 1) + " /" + String.valueOf(year);
+            Toast.makeText(getApplicationContext(), "DATA = " + data, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+
+
 
 }
