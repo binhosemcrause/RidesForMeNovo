@@ -199,6 +199,27 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Valor da carona:"
+                android:textSize="18dp"
+                android:id="@+id/lblValor"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtValor"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
     <Button
