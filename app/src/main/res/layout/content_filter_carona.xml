@@ -58,27 +58,29 @@
         android:id="@+id/edtFiltroDataSaida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/bairroDestino"
         android:ems="10"
-        android:hint="Data Saida (yyyy-MM-dd)"
-        android:inputType="date" />
+        android:hint="Data Saida"
+        android:inputType="date"
+        android:layout_toStartOf="@+id/imageViewDate"
+        android:layout_toLeftOf="@+id/imageViewDate"
+        android:enabled="true"/>
 
     <EditText
         android:id="@+id/edtFiltroHoraSaida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/edtFiltroDataSaida"
         android:ems="10"
         android:hint="Hora Saida"
-        android:inputType="time" />
+        android:inputType="time"
+        android:layout_alignRight="@+id/edtFiltroDataSaida"
+        android:layout_alignEnd="@+id/edtFiltroDataSaida"
+        android:enabled="false"/>
 
     <RadioGroup
         android:id="@+id/radioGroup2"
@@ -107,5 +109,23 @@
             android:text="Todas as Caronas" />
 
     </RadioGroup>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageViewDate"
+        android:src="@drawable/date"
+        android:layout_above="@+id/edtFiltroHoraSaida"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageViewTime"
+        android:src="@drawable/time"
+        android:layout_above="@+id/radioGroup2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

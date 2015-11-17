@@ -8,19 +8,21 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-
+import android.app.TimePickerDialog;
 import com.ridesforme.ridesforme.basicas.Carona;
 import com.ridesforme.ridesforme.util.DataUtil;
 import com.ridesforme.ridesforme.util.NotificationUtils;
-
+import android.widget.TimePicker;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -41,7 +43,10 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
     RadioButton todasAsCaronas;
     RadioGroup radioGroup;
     View radioButton;
+    ImageView imageViewDate;
+    ImageView imageViewTime;
     static final int DATE_DIALOG_ID = 0;
+    static final int TIME_DIALOG_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +64,21 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
         caronaGratis = (RadioButton) findViewById(R.id.rdbFree);
         caronasPagas = (RadioButton) findViewById(R.id.rdbPagas);
         todasAsCaronas = (RadioButton) findViewById(R.id.rdbAll);
+        imageViewDate = (ImageView)findViewById(R.id.imageViewDate);
+        imageViewTime = (ImageView)findViewById(R.id.imageViewTime);
 
-
-        dataOrigem.setOnClickListener(new View.OnClickListener() {
+        imageViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //binho
                 showDialog(DATE_DIALOG_ID);
+            }
+        });
+
+        imageViewTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(TIME_DIALOG_ID);
             }
         });
 
@@ -86,7 +99,13 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
         NotificationUtils.criarNotificacao(getApplicationContext(), "teste", 1);
         carona.setBairroOrigem(bairroOrigem.getText().toString());
         carona.setBairroDestino(bairroDestino.getText().toString());
-        carona.setDataHoraSaidaIda(DataUtil.stringToDate(dataOrigem.getText().toString()));
+
+        String dataOrigem2 = dataOrigem.getText().toString();
+        String dia = dataOrigem2.substring(0, dataOrigem2.indexOf("/"));
+        String dataCortada = dataOrigem2.substring(dataOrigem2.indexOf("/")+1);
+        String mes = dataCortada.substring(0,dataCortada.indexOf("/"));
+        String ano = dataOrigem2.substring(dataOrigem2.lastIndexOf("/")+1);
+        carona.setDataHoraSaidaIda(DataUtil.stringToDate(ano+"-"+mes+"-"+dia));
         //carona.setHoraOrigem(horaOrigem.getText().toString());
 
         Log.i("teste", Integer.toString(radioGroup.indexOfChild(radioButton)));
@@ -211,18 +230,33 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
         int ano = calendario.get(Calendar.YEAR);
         int mes = calendario.get(Calendar.MONTH);
         int dia = calendario.get(Calendar.DAY_OF_MONTH);
+        int hora = calendario.get(Calendar.HOUR_OF_DAY);
+        int minuto = calendario.get(Calendar.MINUTE);
         switch (id) {
             case DATE_DIALOG_ID:
                 return new DatePickerDialog(this, mDateSetListener, ano, mes, dia);
+            case TIME_DIALOG_ID:
+                return new TimePickerDialog(this, mTimeSetListener, hora,minuto,false);
         }
         return null;
     }
 
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            String data = String.valueOf(dayOfMonth) + " /" + String.valueOf(monthOfYear + 1) + " /" + String.valueOf(year);
-            Toast.makeText(getApplicationContext(), "DATA = " + data, Toast.LENGTH_SHORT).show();
+            String data = String.valueOf(dayOfMonth) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(year);
+            //Toast.makeText(getApplicationContext(), "DATA = " + data, Toast.LENGTH_SHORT).show();
+            dataOrigem.setText(data);
         }
+
+    };
+
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            String time = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+            horaOrigem.setText(time);
+        }
+
     };
 
 

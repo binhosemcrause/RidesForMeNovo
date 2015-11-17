@@ -19,6 +19,8 @@ public class Urls {
     public static final String getCaronaFiltroBairroPaga = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroPaga";
     public static final String getCaronaFiltroBairroGratis = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroGratis";
     public static final String getCaronaFiltroBairroDataGratis = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroDataGratis";
+    public static final String getCaronaFiltroBairroDataPago = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroDataPago";
+    public static final String getCaronaFiltroBairroDataTudo = webservice+"/rpg/caronafiltro/getCaronaFiltroBairroDataTudo";
 
 
 
