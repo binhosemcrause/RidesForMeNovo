@@ -154,7 +154,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     String cidadeDestino = caronaJSON.getString("CidadeDestino");
                     String bairroDestino = caronaJSON.getString("BairroDestino");
                     String ruaDestino = caronaJSON.getString("RuaDestino");
-//                  Integer valor = caronaJSON.getInt("Valor");
+                    Integer valor = caronaJSON.getInt("Valor");
                     String descricaoCarona = caronaJSON.getString("DescricaoCarona");
                     Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
                     String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
@@ -177,7 +177,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     carona.setEstadoDestino(estadoDestino);
                     carona.setCidadeDestino(cidadeDestino);
                     carona.setBairroDestino(bairroDestino);
-//                  carona.setValor(valor.toString());
+                    carona.setValor(valor.toString());
                     carona.setDescricaoCarona(descricaoCarona);
                     carona.setTipoVeiculo(tipoVeiculo.toString());
                     carona.setDescricaoVeiculo(descricaoVeiculo);
@@ -249,7 +249,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     String cidadeDestino = caronaJSON.getString("CidadeDestino");
                     String bairroDestino = caronaJSON.getString("BairroDestino");
                     String ruaDestino = caronaJSON.getString("RuaDestino");
-//                  Integer valor = caronaJSON.getInt("Valor");
+                    Integer valor = caronaJSON.getInt("Valor");
                     String descricaoCarona = caronaJSON.getString("DescricaoCarona");
                     Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
                     String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
@@ -272,7 +272,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     carona.setEstadoDestino(estadoDestino);
                     carona.setCidadeDestino(cidadeDestino);
                     carona.setBairroDestino(bairroDestino);
-//                  carona.setValor(valor.toString());
+                    carona.setValor(valor.toString());
                     carona.setDescricaoCarona(descricaoCarona);
                     carona.setTipoVeiculo(tipoVeiculo.toString());
                     carona.setDescricaoVeiculo(descricaoVeiculo);
@@ -344,7 +344,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     String cidadeDestino = caronaJSON.getString("CidadeDestino");
                     String bairroDestino = caronaJSON.getString("BairroDestino");
                     String ruaDestino = caronaJSON.getString("RuaDestino");
-//                  Integer valor = caronaJSON.getInt("Valor");
+                  Integer valor = caronaJSON.getInt("Valor");
                     String descricaoCarona = caronaJSON.getString("DescricaoCarona");
                     Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
                     String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
@@ -367,7 +367,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     carona.setEstadoDestino(estadoDestino);
                     carona.setCidadeDestino(cidadeDestino);
                     carona.setBairroDestino(bairroDestino);
-//                  carona.setValor(valor.toString());
+                  carona.setValor(valor.toString());
                     carona.setDescricaoCarona(descricaoCarona);
                     carona.setTipoVeiculo(tipoVeiculo.toString());
                     carona.setDescricaoVeiculo(descricaoVeiculo);
@@ -439,7 +439,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     String cidadeDestino = caronaJSON.getString("CidadeDestino");
                     String bairroDestino = caronaJSON.getString("BairroDestino");
                     String ruaDestino = caronaJSON.getString("RuaDestino");
-//                  Integer valor = caronaJSON.getInt("Valor");
+                  Integer valor = caronaJSON.getInt("Valor");
                     String descricaoCarona = caronaJSON.getString("DescricaoCarona");
                     Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
                     String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
@@ -462,7 +462,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     carona.setEstadoDestino(estadoDestino);
                     carona.setCidadeDestino(cidadeDestino);
                     carona.setBairroDestino(bairroDestino);
-//                  carona.setValor(valor.toString());
+                 carona.setValor(valor.toString());
                     carona.setDescricaoCarona(descricaoCarona);
                     carona.setTipoVeiculo(tipoVeiculo.toString());
                     carona.setDescricaoVeiculo(descricaoVeiculo);
@@ -535,7 +535,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     String cidadeDestino = caronaJSON.getString("CidadeDestino");
                     String bairroDestino = caronaJSON.getString("BairroDestino");
                     String ruaDestino = caronaJSON.getString("RuaDestino");
-//                  Integer valor = caronaJSON.getInt("Valor");
+                  Integer valor = caronaJSON.getInt("Valor");
                     String descricaoCarona = caronaJSON.getString("DescricaoCarona");
                     Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
                     String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
@@ -558,7 +558,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     carona.setEstadoDestino(estadoDestino);
                     carona.setCidadeDestino(cidadeDestino);
                     carona.setBairroDestino(bairroDestino);
-//                  carona.setValor(valor.toString());
+                  carona.setValor(valor.toString());
                     carona.setDescricaoCarona(descricaoCarona);
                     carona.setTipoVeiculo(tipoVeiculo.toString());
                     carona.setDescricaoVeiculo(descricaoVeiculo);

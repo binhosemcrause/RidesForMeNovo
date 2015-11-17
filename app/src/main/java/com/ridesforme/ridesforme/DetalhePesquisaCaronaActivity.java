@@ -37,6 +37,7 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
     TextView mTxtBairroDestino;
     TextView mTxtNumeroDestino;
     TextView mTxtVagas;
+    TextView mTxtValor;
     Button btnSolicitarCarona;
     Carona carona;
     Integer idCarona;
@@ -57,6 +58,7 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
         mTxtBairroDestino = (TextView)findViewById(R.id.txtBairroDestino);
         mTxtNumeroDestino = (TextView)findViewById(R.id.txtNumeroDestino);
         mTxtVagas = (TextView) findViewById(R.id.txtVagas);
+        mTxtValor = (TextView) findViewById(R.id.txtValor);
         btnSolicitarCarona = (Button)findViewById(R.id.btnSolicitarCarona);
 
         Intent it = getIntent();
@@ -70,6 +72,7 @@ public class DetalhePesquisaCaronaActivity extends AppCompatActivity {
             mTxtCidadeDestino.setText(carona.getCidadeDestino());
             mTxtBairroDestino.setText(carona.getBairroDestino());
             mTxtVagas.setText(carona.getVagas());
+            mTxtValor.setText(carona.getValor());
             if (Integer.parseInt(carona.getVagas())==0) {
                 btnSolicitarCarona.setEnabled(false);
             }
