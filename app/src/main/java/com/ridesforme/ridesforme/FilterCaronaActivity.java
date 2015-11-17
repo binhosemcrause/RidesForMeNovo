@@ -64,6 +64,7 @@ public class FilterCaronaActivity extends AppCompatActivity implements View.OnCl
         dataOrigem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //binho
                 showDialog(DATE_DIALOG_ID);
             }
         });
