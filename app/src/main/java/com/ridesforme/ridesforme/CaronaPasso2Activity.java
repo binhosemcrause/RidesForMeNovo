@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.common.data.DataHolder;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -24,28 +23,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-
-import org.json.JSONObject;
-
 import com.google.gson.Gson;
 import com.ridesforme.ridesforme.basicas.Carona;
 import com.ridesforme.ridesforme.util.DirectionsJSONParser;
-import com.ridesforme.ridesforme.repositorios.RepositorioCarona;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -185,7 +179,7 @@ public class CaronaPasso2Activity extends AppCompatActivity implements OnMapRead
                         .build();
                 Request request = new Request.Builder()
                         //teste login servidor casa felipe
-                        .url("http://179.181.41.70:8080/rpg/carona/cadastrarCarona")
+                        .url("http://ridesforme.no-ip.info:8080/rpg/carona/cadastrarCarona")
                         .post(requestBody)
                         .build();
                 try {

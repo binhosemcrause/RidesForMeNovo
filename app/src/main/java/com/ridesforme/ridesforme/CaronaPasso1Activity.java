@@ -82,4 +82,6 @@ public class CaronaPasso1Activity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

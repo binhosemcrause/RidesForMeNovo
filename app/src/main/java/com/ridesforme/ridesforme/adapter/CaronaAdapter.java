@@ -14,9 +14,6 @@ import com.ridesforme.ridesforme.basicas.Carona;
 
 import java.util.List;
 
-/**
- * Created by Marcos Antônio on 30/09/2015.
- */
 public class CaronaAdapter extends BaseAdapter{
 
     ViewHolder mViewHolder;
@@ -28,6 +25,9 @@ public class CaronaAdapter extends BaseAdapter{
         this.mCaronas = caronas;
     }
 
+    public List<Carona> getValues() {
+        return mCaronas;
+    }
     @Override
     public int getCount() {
         return mCaronas.size();

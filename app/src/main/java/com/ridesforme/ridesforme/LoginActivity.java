@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.ridesforme.ridesforme.basicas.Usuario;
 import com.ridesforme.ridesforme.util.Urls;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -25,20 +26,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class LoginActivity extends Activity {
+    Usuario mUsuario;
+    GetUsuarioTask mGetUsuarioTask;
     UserSessionManager session;
     EditText txtLogin;
     EditText txtPassword;
     Boolean exit = false;
     MaterialDialog mDialog;
-
-
-
+    
     @Override
     public void onBackPressed() {
         if (exit) {
@@ -90,16 +92,20 @@ public class LoginActivity extends Activity {
                 String username = txtLogin.getText().toString();
                 String password = txtPassword.getText().toString();
                 session.createUserLoginSession(username, password, "1");
+
+                mGetUsuarioTask = new GetUsuarioTask();
+                mGetUsuarioTask.execute("1");
+
+                String username = txtLogin.getText().toString();
+                String password = txtPassword.getText().toString();
+                session.createUserLoginSession(username, password, "1");
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("usuario", mUsuario);
                 startActivity(intent);
                 finish();
             }
         });*/
-
-
-
-
 
         //Com WebService
         btnLogar.setOnClickListener(new Button.OnClickListener() {
@@ -120,7 +126,7 @@ public class LoginActivity extends Activity {
                             JSONObject obj = obj2.getJSONObject(0);
                             idUser = obj.getString("UsuarioId");
 
-                            Log.i("id",idUser);
+                            Log.i("id", idUser);
                             Log.i("result",result);
 
                         } catch (JSONException e) {
@@ -134,13 +140,11 @@ public class LoginActivity extends Activity {
                                     .show();
 
                             session.createUserLoginSession(username, password,idUser);
-                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
+                            mGetUsuarioTask = new GetUsuarioTask();
+                            mGetUsuarioTask.execute(idUser);
+
                         } else {
                             Toast.makeText(getApplication(), "login ou senha inválidos!", Toast.LENGTH_SHORT).show();
-
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -152,8 +156,7 @@ public class LoginActivity extends Activity {
                 }
             }
         });
-
-
+        
         txtCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,9 +167,6 @@ public class LoginActivity extends Activity {
 
     }
 
-    /**
-     * Created by Felipe on 27/08/2015.
-     */
     public static class LoginControllerTask extends AsyncTask<String, Integer, String> {
         Urls urls;
 
@@ -235,4 +235,88 @@ public class LoginActivity extends Activity {
         return validado;
     }
 
+    public class GetUsuarioTask extends AsyncTask<String, Void, Usuario> {
+
+        @Override
+        protected void onPostExecute(Usuario usuario) {
+            super.onPostExecute(usuario);
+
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("usuario", mUsuario);
+            startActivity(intent);
+            finish();
+        }
+
+        @Override
+        protected Usuario doInBackground(String... params) {
+
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        //teste login servidor casa felipe
+                        .url("http://ridesforme.no-ip.info:8080/rpg/usuario/getUsuario/" + params[0])
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                String responseString = response.body().string();
+                Log.i("json", responseString);
+                response.body().close();
+
+                JSONArray jsonArray = new JSONArray(responseString);
+                for (int i = 0; i < jsonArray.length() ; i++) {
+                    JSONObject usuarioJSON = jsonArray.getJSONObject(i);
+                    final long usuarioId = usuarioJSON.getInt("UsuarioId");
+                    final String nome = usuarioJSON.getString("Nome");
+                    final String email = usuarioJSON.getString("Email");
+                    final String empresa = usuarioJSON.getString("Empresa");
+                    final String senha = usuarioJSON.getString("Senha");
+                    final String dataNascimento = usuarioJSON.getString("DataNascimento");
+                    final String sexo = usuarioJSON.getString("Sexo");
+                    //final String matricula = usuarioJSON.getString("Matricula");
+                    final String telefone = usuarioJSON.getString("Telefone");
+                    final String estado = usuarioJSON.getString("Estado");
+                    final String cidade = usuarioJSON.getString("Cidade");
+                    final String login = usuarioJSON.getString("Login");
+                    final String rua = usuarioJSON.getString("Rua");
+                    final String numero = usuarioJSON.getString("Numero");
+                    final String bairro = usuarioJSON.getString("Bairro");
+                    final String cep = usuarioJSON.getString("Cep");
+                    final String celular = usuarioJSON.getString("Celular");
+                    final String localEmpresa = usuarioJSON.getString("LocalEmpresa");
+                    //final String imagemPerfilUrl = usuarioJSON.getString("ImagemPerfilUrl");
+
+                    mUsuario = new Usuario();
+                    mUsuario.setNome(nome);
+                    mUsuario.setEmail(email);
+                    mUsuario.setEmpresa(empresa);
+                    mUsuario.setSenha(senha);
+                    mUsuario.setDataNascimento(new Date());
+                    mUsuario.setSexo(sexo);
+                    // mUsuario.setMatricula(Long.parseLong(matricula));
+                    mUsuario.setTelefone(telefone);
+                    mUsuario.setUsuarioId(usuarioId);
+                    mUsuario.setEstado(estado);
+                    mUsuario.setCidade(cidade);
+                    mUsuario.setLogin(login);
+                    mUsuario.setRua(rua);
+                    mUsuario.setNumero(numero);
+                    mUsuario.setBairro(bairro);
+                    mUsuario.setCep(cep);
+                    mUsuario.setCelular(celular);
+                    mUsuario.setLocalEmpresa(localEmpresa);
+                    //mUsuario.setImagemPerfilUrl(imagemPerfilUrl);
+
+                    Log.i("usuario", "HomeActivity: " + mUsuario.toString());
+
+                }
+                return mUsuario;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+    }
 }

@@ -354,7 +354,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     String cidadeDestino = caronaJSON.getString("CidadeDestino");
                     String bairroDestino = caronaJSON.getString("BairroDestino");
                     String ruaDestino = caronaJSON.getString("RuaDestino");
-                  Integer valor = caronaJSON.getInt("Valor");
+                    Integer valor = caronaJSON.getInt("Valor");
                     String descricaoCarona = caronaJSON.getString("DescricaoCarona");
                     Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
                     String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
@@ -449,7 +449,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     String cidadeDestino = caronaJSON.getString("CidadeDestino");
                     String bairroDestino = caronaJSON.getString("BairroDestino");
                     String ruaDestino = caronaJSON.getString("RuaDestino");
-                  Integer valor = caronaJSON.getInt("Valor");
+                    Integer valor = caronaJSON.getInt("Valor");
                     String descricaoCarona = caronaJSON.getString("DescricaoCarona");
                     Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
                     String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");
@@ -545,7 +545,7 @@ public class PesquisarCaronaActivity extends AppCompatActivity implements View.O
                     String cidadeDestino = caronaJSON.getString("CidadeDestino");
                     String bairroDestino = caronaJSON.getString("BairroDestino");
                     String ruaDestino = caronaJSON.getString("RuaDestino");
-                  Integer valor = caronaJSON.getInt("Valor");
+                    Integer valor = caronaJSON.getInt("Valor");
                     String descricaoCarona = caronaJSON.getString("DescricaoCarona");
                     Integer tipoVeiculo = caronaJSON.getInt("TipoVeiculo");
                     String descricaoVeiculo = caronaJSON.getString("DescricaoVeiculo");

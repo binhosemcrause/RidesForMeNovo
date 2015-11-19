@@ -21,6 +21,8 @@ public class UserSessionManager {
     public static final String KEY_IDUSER = "iduser";
     public static final String KEY_LAT = "lat";
     public static final String KEY_LNG = "lng";
+    public static final String KEY_ACCESS_TOKEN = "accessToken";
+
 
     // Constructor
     public UserSessionManager(Context context) {
@@ -35,6 +37,15 @@ public class UserSessionManager {
         editor.putString(KEY_SENHA, senha);
         editor.putString(KEY_IDUSER, idUser);
         editor.commit();
+    }
+
+    public void createDropBoxAccessToken(String accessToken) {
+        editor.putString(KEY_ACCESS_TOKEN, accessToken);
+        editor.commit();
+    }
+
+    public String getDropBoxAccessToken() {
+       return pref.getString(KEY_ACCESS_TOKEN, "");
     }
 
     public void createLastLocation(String lat, String lng) {
@@ -73,7 +84,7 @@ public class UserSessionManager {
     public void logoutUser() {
         editor.clear();
         editor.commit();
-        Intent i = new Intent(_context, com.ridesforme.ridesforme.LoginActivity.class);
+        Intent i = new Intent(_context, LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         _context.startActivity(i);
